@@ -22,7 +22,7 @@ public class Minesweeper {
 		GridLayout gl = new GridLayout();
 		JButton start = new JButton("Start");
 		JButton setting = new JButton("Setting");
-		JTextArea ta = new JTextArea("Software-Engeneering \nProjekt Minesweeper \nby Sandra, Philipp, John");
+		JTextArea ta = new JTextArea("Software-Engeneering \nProjekt Minesweeper \nby Sandra, Philipp, John, Chris");
 
 		gl.setRows(3);
 
