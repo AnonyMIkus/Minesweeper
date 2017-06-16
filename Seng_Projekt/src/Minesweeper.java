@@ -1,8 +1,11 @@
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,10 +22,11 @@ import java.awt.Canvas;
 import java.awt.Button;
 import javax.swing.JToggleButton;
 import javax.swing.ButtonGroup;
+import javax.swing.SwingUtilities;
 
 public class Minesweeper {
 
-	private JFrame frame;
+	private JFrame frmMinesweeper;
 	boolean selectedAnf = true;
 	boolean selectedErf = false;
 	boolean selectedProf = false;
@@ -37,7 +41,7 @@ public class Minesweeper {
 			public void run() {
 				try {
 					Minesweeper window = new Minesweeper();
-					window.frame.setVisible(true);
+					window.frmMinesweeper.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,23 +62,25 @@ public class Minesweeper {
 	private void initialize() {
 		
 		
-		frame = new JFrame();
-		frame.setBounds(500, 200, 451, 392);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmMinesweeper = new JFrame();
+		frmMinesweeper.setTitle("Minesweeper");
+		frmMinesweeper.setBounds(500, 200, 451, 392);
+		frmMinesweeper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMinesweeper.getContentPane().setLayout(null);
 		
 		initializeButtons();
 		
 		
 		JTextArea txtrSoftwareengineering = new JTextArea();
+		txtrSoftwareengineering.setEditable(false);
 		txtrSoftwareengineering.setText("Software-Engineering \nProjekt von \nSandra, Philipp, John, Chris");
 		txtrSoftwareengineering.setBounds(36, 267, 185, 55);
-		frame.getContentPane().add(txtrSoftwareengineering);
+		frmMinesweeper.getContentPane().add(txtrSoftwareengineering);
 		
 		JLabel lblMinesweeper = new JLabel("Minesweeper");
 		lblMinesweeper.setFont(new Font("Arial Black", Font.BOLD, 22));
 		lblMinesweeper.setBounds(126, 30, 196, 23);
-		frame.getContentPane().add(lblMinesweeper);
+		frmMinesweeper.getContentPane().add(lblMinesweeper);
 		
 		JMenuBar bar = new JMenuBar();
 		JMenu file = new JMenu("File");
@@ -92,7 +98,7 @@ public class Minesweeper {
 		
 		bar.add(file);
 		
-		frame.setJMenuBar(bar);
+		frmMinesweeper.setJMenuBar(bar);
 		
 		
 		
@@ -107,7 +113,7 @@ public class Minesweeper {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Spiel", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(82, 85, 118, 166);
-		frame.getContentPane().add(panel);
+		frmMinesweeper.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JToggleButton btnStandard = new JToggleButton("Standard");
@@ -130,7 +136,7 @@ public class Minesweeper {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Schwierigkeitsgrad", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBounds(247, 83, 118, 166);
-		frame.getContentPane().add(panel_1);
+		frmMinesweeper.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		JToggleButton btnEasy = new JToggleButton("Anf\u00E4nger");
@@ -153,17 +159,18 @@ public class Minesweeper {
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmMinesweeper.dispose();
 				Game game = new Game(btnEasy.isSelected() ? 0 : btnMedium.isSelected() ? 1 : 2, menu);
 			
 			}
 		});
+
 		btnStart.setBounds(276, 279, 89, 23);
-		frame.getContentPane().add(btnStart);
+		frmMinesweeper.getContentPane().add(btnStart);
 		
 	}
 	
 	public JFrame getFrame(){
-		return this.frame;
+		return this.frmMinesweeper;
 	}
 }
