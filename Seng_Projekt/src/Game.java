@@ -29,6 +29,7 @@ public class Game {
 	Minesweeper menu;
 	JPanel panel2;
 	ImageIcon ico = new ImageIcon("img/flag.png"); //Bild der Flagge
+	int bombs;
 	
 	int panelAnfPosX = 49;
 	int panelAnfPosY = 72;
@@ -55,6 +56,7 @@ public class Game {
 		this.menu = menu;
 		dimensionY = mode == 0 ? 8 : mode == 1 ? 16 : 30;		//Dimensionen der Spielfeldgröße je nach Schwierigkeitsgrad
 		dimensionX = mode == 0 ? 8 : mode == 1 ? 16 : 16;
+		bombs =  mode == 0 ? 10 : mode == 1 ? 40 : 99;
 		frmMinesweeper = new JFrame();
 		frmMinesweeper.setTitle("Minesweeper");
 		frmMinesweeper.setResizable(false);
@@ -166,7 +168,7 @@ public class Game {
             }
         }
         
-        spreadBombs(mode == 0 ? 10 : mode == 1 ? 40 : 99);	//Mienen werden verteilt je nach gewähltem Schwierigkeitsgrad
+        spreadBombs();	//Mienen werden verteilt je nach gewähltem Schwierigkeitsgrad
       
         
         panel.setOpaque(false);	//das Panel mit den Zellen wird auf durchsichtig gesetzt, damit man die Labels dahinter bei Buttondruck sehen kann
@@ -174,11 +176,11 @@ public class Game {
         return panel;
     }
 	
-	private void spreadBombs(int number){
+	private void spreadBombs(){
 		
 		Random rnd = new Random();
 		
-		for(int j = 0; j< number; j++){
+		for(int j = 0; j< bombs; j++){
         	
         	int x;
         	int y;
@@ -217,6 +219,33 @@ public class Game {
 	public Cell getCellbyIndex(int[] index){		//Kann von einer Zelle aufgerufen werden um die Zelle anhand eines Index zurück zu bekommen
 		
 		return cells[index[0]][index[1]];
+	}
+
+	public void uncoverAllBombs() {
+		 for(int i = 0; i< dimensionX; i++){
+	            for(int j = 0; j< dimensionY; j++){
+	            	cells[i][j].removeFlag();
+	            	if(cells[i][j].bomb)
+	            		cells[i][j].uncover();
+	            }
+		
+		 }
+	}
+
+	public void checkWin() {
+		
+		int counter = 0;
+	
+		for(int i = 0; i< dimensionX; i++){
+            for(int j = 0; j< dimensionY; j++){
+            	if(cells[i][j].uncovered && !cells[i][j].bomb){
+            		counter++;
+            		if(counter == (dimensionX * dimensionY) - bombs) 
+            			cells[i][j].win();
+            	}
+            	
+            }
+		}
 	}
 }
 

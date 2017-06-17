@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,7 @@ public class Cell implements ActionListener {
 	private JLabel label;
 	boolean bomb = false;
 	boolean flagSet = false;
+	boolean markedUnsure = false;
 	private int value = 0;
 	private int[] index;
 	Game game;
@@ -32,6 +34,7 @@ public class Cell implements ActionListener {
 
 		button = new JButton();
 		this.ico = flagItem;
+		
 
 		label = new JLabel();		//Hintergrundlabel der Zelle
 		label.setVerticalAlignment(SwingConstants.CENTER);
@@ -51,16 +54,41 @@ public class Cell implements ActionListener {
 			public void mouseReleased(MouseEvent e) {
 				if (SwingUtilities.isRightMouseButton(e)) {
 
-					if (!flagSet) {
+					if (!flagSet && !markedUnsure) {
 						button.setIcon(ico);
 						flagSet = true;
-					} else {
-						button.setIcon(null);
-						flagSet = false;
+					} else 
+						if(!markedUnsure){
+							button.setIcon(null);
+							flagSet = false;
+							markUnsure();	//Setzt ein Fragezeichen bei einem zweiten Rechtsklick
+							
+						}
+						else{
+							button.setIcon(null);
+							flagSet = false;
+							deMarkUnsure();		//Löscht das Fragezeichen
+							
+						}
 						//Wenn noch keine Flagge gesetzt, Flagge setzen, ansonsten Flagge wegnehmen
 					}
 				}
+
+			private void deMarkUnsure() {
+				
+				button.setText(null);
+				markedUnsure = false;
+				
 			}
+
+			private void markUnsure() {
+				
+				markedUnsure = true;
+				button.setFont(new Font("Arial Black", Font.PLAIN, 25));
+				button.setText("?");
+				
+			}
+			
 
 		});
 
@@ -69,15 +97,17 @@ public class Cell implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
+
 		if(!flagSet){
 		uncover();
 		
 		//Bei Linksklick aufdecken, falls keine Flagge gesetzt ist
 
 		if (bomb) {
-			GameOver gameOver = new GameOver(new Minesweeper());
+			uncoverAllBombs();
+			GameOver gameOver = new GameOver(game.menu, game);
 			gameOver.setVisible(true);
-			game.frmMinesweeper.dispose();
+			
 			
 			//Wenn auf dem Feld eine Miene ist, Game Over
 		}
@@ -85,6 +115,8 @@ public class Cell implements ActionListener {
 		uncoverNeighbours();
 		
 		//Wenn das Feld leer ist, Nachbarn aufdecken
+		
+		game.checkWin();
 		}
 
 	}
@@ -117,6 +149,16 @@ public class Cell implements ActionListener {
 		label.setForeground(Color.RED);
 		
 		//setzen einer Miene bei Spielstart
+	}
+	
+	public void removeFlag()
+	{
+		flagSet = false;
+		button.setIcon(null);
+	}
+	
+	public void uncoverAllBombs(){
+		game.uncoverAllBombs();
 	}
 
 	public JButton getButton() {
@@ -173,6 +215,13 @@ public class Cell implements ActionListener {
 			neighbourCells.add(game.getCellbyIndex(new int[] { x - 1, y - 1 }));
 		
 		//befüllt die neighbourCells Liste mit den Nachbarn der Zelle. Dabei werden Zellen, die am Rand des Spielfelds liegen berücksichtigt
+	}
+
+	public void win() {
+		game.frmMinesweeper.dispose();
+		Gewonnen g = new Gewonnen();
+		g.setVisible(true);
+		
 	}
 
 }

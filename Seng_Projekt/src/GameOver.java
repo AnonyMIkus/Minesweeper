@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class GameOver extends JDialog {
+	
+	Game game;
 
 	private final JPanel contentPanel = new JPanel();
 
@@ -21,7 +23,9 @@ public class GameOver extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public GameOver(Minesweeper menu) {
+	public GameOver(Minesweeper menu, Game game) {
+		setTitle("Verloren!");
+		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -30,7 +34,7 @@ public class GameOver extends JDialog {
 		
 		JLabel lblLeiderVerloren = new JLabel("Leider verloren! :(");
 		lblLeiderVerloren.setFont(new Font("Arial Black", Font.PLAIN, 36));
-		lblLeiderVerloren.setBounds(10, 53, 418, 86);
+		lblLeiderVerloren.setBounds(33, 56, 364, 86);
 		contentPanel.add(lblLeiderVerloren);
 		{
 			JPanel buttonPane = new JPanel();
@@ -41,6 +45,7 @@ public class GameOver extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
+						game.frmMinesweeper.dispose();
 						menu.getFrame().setVisible(true);
 					}
 				});

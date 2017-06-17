@@ -61,6 +61,7 @@ public class Minesweeper {
 	private void initialize() {
 
 		frmMinesweeper = new JFrame(); 
+		frmMinesweeper.setResizable(false);
 		frmMinesweeper.setTitle("Minesweeper");
 		frmMinesweeper.setBounds(500, 200, 451, 392); 					//Position und Größe des Fensters
 		frmMinesweeper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
