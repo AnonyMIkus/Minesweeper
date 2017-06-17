@@ -28,16 +28,17 @@ public class Cell implements ActionListener {
 	public int dimensionX;
 	public int dimensionY;
 
-	public Cell(Game game, int[] index, ImageIcon flagItem) {
+	public Cell(Game game, int[] index, ImageIcon flagItem) {	//Konstruktor der Zelle, Spiel-Obekt, Index der Zelle und Icon der Flagge wird mitgegeben
 
 		button = new JButton();
 		this.ico = flagItem;
 
-		label = new JLabel();
+		label = new JLabel();		//Hintergrundlabel der Zelle
 		label.setVerticalAlignment(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setPreferredSize(new Dimension(20, 20));
 		label.setBorder(new LineBorder(Color.BLACK, 1));
+		// Ausrichtung der Beschriftung der Hintergrundlabels der Zelle
 		button.addActionListener(this);
 		button.setPreferredSize(new Dimension(20, 20));
 		button.setMargin(new Insets(0, 0, 0, 0));
@@ -46,7 +47,7 @@ public class Cell implements ActionListener {
 		this.dimensionX = game.dimensionX;
 		this.dimensionY = game.dimensionY;
 
-		button.addMouseListener(new MouseAdapter() {
+		button.addMouseListener(new MouseAdapter() {		//Flagge setzen bei Rechtsklick
 			public void mouseReleased(MouseEvent e) {
 				if (SwingUtilities.isRightMouseButton(e)) {
 
@@ -56,6 +57,7 @@ public class Cell implements ActionListener {
 					} else {
 						button.setIcon(null);
 						flagSet = false;
+						//Wenn noch keine Flagge gesetzt, Flagge setzen, ansonsten Flagge wegnehmen
 					}
 				}
 			}
@@ -67,16 +69,23 @@ public class Cell implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
+		if(!flagSet){
 		uncover();
+		
+		//Bei Linksklick aufdecken, falls keine Flagge gesetzt ist
 
 		if (bomb) {
 			GameOver gameOver = new GameOver(new Minesweeper());
 			gameOver.setVisible(true);
 			game.frmMinesweeper.dispose();
+			
+			//Wenn auf dem Feld eine Miene ist, Game Over
 		}
 		if(this.getValue() == 0 && !this.bomb)
 		uncoverNeighbours();
-		//game.uncover(index);
+		
+		//Wenn das Feld leer ist, Nachbarn aufdecken
+		}
 
 	}
 
@@ -89,13 +98,15 @@ public class Cell implements ActionListener {
 
 	public void uncoverNeighbours() {
 
-		getNeighbours();
+		getNeighbours();	//Befüllt die neighbourCells Liste, in der die Nachbarzellen gespeichert sind
 
 		for (int i = 0; i < neighbourCells.size(); i++) {
-			if (!neighbourCells.get(i).uncovered && (!neighbourCells.get(i).bomb || neighbourCells.get(i).flagSet))
+			if (!neighbourCells.get(i).uncovered && (!neighbourCells.get(i).bomb || neighbourCells.get(i).flagSet)){
 				neighbourCells.get(i).uncover();
 			if (neighbourCells.get(i).getValue() == 0)
 				neighbourCells.get(i).uncoverNeighbours();
+			}
+			//deckt die Nachbarzellen auf, wenn diese keine Bombe oder Flagge enthalten. Wenn diese leer sind, werden deren Nachbarzellen auch aufgedeckt
 		}
 
 	}
@@ -104,6 +115,8 @@ public class Cell implements ActionListener {
 		bomb = true;
 		label.setText("X");
 		label.setForeground(Color.RED);
+		
+		//setzen einer Miene bei Spielstart
 	}
 
 	public JButton getButton() {
@@ -122,6 +135,7 @@ public class Cell implements ActionListener {
 		if (!bomb) {
 			value = val;
 			label.setText(Integer.toString(value));
+			//Der Wert des Labels wird bei Spielstart gesetzt
 		}
 	}
 
@@ -131,6 +145,7 @@ public class Cell implements ActionListener {
 
 	public int[] getIndex() {
 		return this.index;
+		//Gibt den Index der Zelle zurück
 	}
 
 	private void getNeighbours() {
@@ -156,6 +171,8 @@ public class Cell implements ActionListener {
 			neighbourCells.add(game.getCellbyIndex(new int[] { x - 1, y + 1 }));
 		if (x != 0 && y != 0)
 			neighbourCells.add(game.getCellbyIndex(new int[] { x - 1, y - 1 }));
+		
+		//befüllt die neighbourCells Liste mit den Nachbarn der Zelle. Dabei werden Zellen, die am Rand des Spielfelds liegen berücksichtigt
 	}
 
 }

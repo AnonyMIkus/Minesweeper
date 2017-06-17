@@ -213,58 +213,6 @@ public class Game {
 
 	
 	
-	public void uncover(int[] i){
-		
-		int x = i[0];
-		int y = i[1];
-		Cell cell;
-		
-		if (cells[x][y].getValue() == 0 && !cells[x][y].bomb){
-			
-			if (x != 0 && !cells[x-1][y].uncovered && (!cells[x-1][y].bomb || cells[x-1][y].flagSet)){
-				cells[x-1][y].uncover();
-					if(cells[x-1][y].getValue() == 0)
-						uncover(new int[] {cells[x-1][y].getIndex()[0], cells[x-1][y].getIndex()[1]});
-				}
-			
-			if (x != dimensionX-1 && !cells[x+1][y].uncovered && (!cells[x+1][y].bomb || cells[x+1][y].flagSet)){
-				cells[x+1][y].uncover();
-					if(cells[x+1][y].getValue() == 0)
-						uncover(new int[] {cells[x+1][y].getIndex()[0], cells[x+1][y].getIndex()[1]});
-				}
-			if (x != 0 && y != dimensionY-1 && !cells[x-1][y+1].uncovered && !cells[x-1][y+1].bomb){
-				cells[x-1][y+1].uncover();
-					if(cells[x-1][y+1].getValue() == 0)
-						uncover(new int[] {cells[x-1][y+1].getIndex()[0], cells[x-1][y+1].getIndex()[1]});
-				}
-	    	if (x != dimensionX-1 && y != dimensionY-1 && !cells[x+1][y+1].uncovered && !cells[x+1][y+1].bomb){
-	    		cells[x+1][y+1].uncover();
-					if(cells[x+1][y+1].getValue() == 0)
-						uncover(new int[] {cells[x+1][y+1].getIndex()[0], cells[x+1][y+1].getIndex()[1]});
-	    			}
-	    	if (y != dimensionY-1 && !cells[x][y+1].uncovered && !cells[x][y+1].bomb){
-	    		cells[x][y+1].uncover();
-					if(cells[x][y+1].getValue() == 0)
-						uncover(new int[] {cells[x][y+1].getIndex()[0], cells[x][y+1].getIndex()[1]});
-		    		}
-	    	if (y != 0 && !cells[x][y-1].uncovered && !cells[x][y-1].bomb){
-	    		cells[x][y-1].uncover();
-					if(cells[x][y-1].getValue() == 0)
-						uncover(new int[] {cells[x][y-1].getIndex()[0], cells[x][y-1].getIndex()[1]});
-		    		}
-	    	if (x != dimensionX-1 && y != 0 && !cells[x+1][y-1].uncovered && !cells[x+1][y-1].bomb){
-	    		cells[x+1][y-1].uncover();
-					if(cells[x+1][y-1].getValue() == 0)
-						uncover(new int[] {cells[x+1][y-1].getIndex()[0], cells[x+1][y-1].getIndex()[1]});
-		    		}
-	    	if (x != 0 && y != 0 && !cells[x-1][y-1].uncovered && !cells[x-1][y-1].bomb){
-	    		cells[x-1][y-1].uncover();
-					if(cells[x-1][y-1].getValue() == 0)
-						uncover(new int[] {cells[x-1][y-1].getIndex()[0], cells[x-1][y-1].getIndex()[1]});
-		    		}
-		}
-	}
-	
 	public Cell getCellbyIndex(int[] index){
 		
 		return cells[index[0]][index[1]];
