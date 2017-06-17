@@ -28,7 +28,7 @@ public class Game {
 	JFrame frmMinesweeper;
 	Minesweeper menu;
 	JPanel panel2;
-	ImageIcon ico = new ImageIcon("img/flag.png");
+	ImageIcon ico = new ImageIcon("img/flag.png"); //Bild der Flagge
 	
 	int panelAnfPosX = 49;
 	int panelAnfPosY = 72;
@@ -40,7 +40,7 @@ public class Game {
 	int panelFortWidth = 488;
 	int panelProWidth = 850;
 
-
+//Positionen und Skalierungen der Spielfelder
 
 	
 	
@@ -53,7 +53,7 @@ public class Game {
 		
 		this.mode = mode;
 		this.menu = menu;
-		dimensionY = mode == 0 ? 8 : mode == 1 ? 16 : 30;
+		dimensionY = mode == 0 ? 8 : mode == 1 ? 16 : 30;		//Dimensionen der Spielfeldgröße je nach Schwierigkeitsgrad
 		dimensionX = mode == 0 ? 8 : mode == 1 ? 16 : 16;
 		frmMinesweeper = new JFrame();
 		frmMinesweeper.setTitle("Minesweeper");
@@ -89,7 +89,7 @@ public class Game {
 		frmMinesweeper.setJMenuBar(bar);
 
 		
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel();		//Umrandung für die Zeitangabe
 		panel.setBorder(new TitledBorder(null, "Zeit", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 11, 50, 50);
 		frmMinesweeper.getContentPane().add(panel);
@@ -97,9 +97,9 @@ public class Game {
 		JLabel timer = new JLabel();
 		panel.add(timer);
 		timer.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		timer.setText("00:00");
+		timer.setText("00:00");		//Zeitangabe. Wäre durch die Variable "Zeit" zu ersetzen
 		
-		JButton btnMenu = new JButton("zur\u00FCck zum Hauptmen\u00FC");
+		JButton btnMenu = new JButton("zur\u00FCck zum Hauptmen\u00FC"); //Führt zurück zum Hauptmenü
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmMinesweeper.dispose();
@@ -112,17 +112,17 @@ public class Game {
 		
 	}
 	
-	public JPanel addCells(){
+	public JPanel addCells(){ 			//Methode fügt die Zellen hinzu
 		
-        JPanel panel = new JPanel(new GridLayout(dimensionX,dimensionY));
-        panel2 = new JPanel(new GridLayout(dimensionX, dimensionY));
+        JPanel panel = new JPanel(new GridLayout(dimensionX,dimensionY));	//panel = Hier werden die Zellen reingesetzt
+        panel2 = new JPanel(new GridLayout(dimensionX, dimensionY));	//panel2 = hinter den Zellen die Zahlenangaben, Bombenbildchen etc.
         
         int posX = 0;
         int posY = 0;
         int width = 0;
         int height = 0;
         
-        switch (mode){
+        switch (mode){		// Je nach gewähltem Schwierigkeitsgrad (mode) werden die Position und Skalierung des Spielfeldes gesetzt
         case 0:
         	posX = panelAnfPosX;
         	posY = panelAnfPosY;
@@ -148,28 +148,28 @@ public class Game {
         panel.setBounds(posX, posY, width, height);
         panel2.setBounds(panel.getBounds());
         
-        frmMinesweeper.setBounds(500, 200, width + posX + 50, height + posY + 100);
+        frmMinesweeper.setBounds(500, 200, width + posX + 50, height + posY + 100);	//die Größe des Fensters ist abhängig von der Größe des Spielfeldes
         
-        ico.setImage(ico.getImage().getScaledInstance(width/dimensionY -5,height/dimensionX -5,Image.SCALE_DEFAULT));
+        ico.setImage(ico.getImage().getScaledInstance(width/dimensionY -5,height/dimensionX -5,Image.SCALE_DEFAULT)); //Größe der Flagge, die in einem Button angezeigt wird. Abhängig von der Größe des SPielfeldes
         
-        cells = new Cell[dimensionX][dimensionY];
+        cells = new Cell[dimensionX][dimensionY];	//Array "cells" wird erstellt mit den Dimensionen der Spielfeldgröße
         
         for(int i = 0; i< dimensionX; i++){
             for(int j = 0; j< dimensionY; j++){
 
             	
-                cells[i][j] = new Cell(this, new int[] {i, j}, ico);
+                cells[i][j] = new Cell(this, new int[] {i, j}, ico); //Cell-Objekte werden erstellt, Game-Objekt, Index der Zelle und Icon für die Flagge werden mitgegeben
                 
-                panel2.add(cells[i][j].getLabel());
-                panel.add(cells[i][j].getButton());
+                panel2.add(cells[i][j].getLabel());		//Hintergrundpanel wird befüllt mit den Labels (Hintergrundbildern) der Zellen
+                panel.add(cells[i][j].getButton());		//Vordergrundpanel wird befüllt mit den Buttons der Zellen
                     
             }
         }
         
-        spreadBombs(mode == 0 ? 10 : mode == 1 ? 40 : 99);
+        spreadBombs(mode == 0 ? 10 : mode == 1 ? 40 : 99);	//Mienen werden verteilt je nach gewähltem Schwierigkeitsgrad
       
         
-        panel.setOpaque(false);
+        panel.setOpaque(false);	//das Panel mit den Zellen wird auf durchsichtig gesetzt, damit man die Labels dahinter bei Buttondruck sehen kann
         
         return panel;
     }
@@ -187,7 +187,7 @@ public class Game {
         	x = rnd.nextInt(dimensionX);
         	y = rnd.nextInt(dimensionY);
         	}
-        	while(cells[x][y].bomb);
+        	while(cells[x][y].bomb);		//Mienen werden zufällig auf die Felder verteilt
         			
         	cells[x][y].setBomb();
         	
@@ -207,13 +207,14 @@ public class Game {
         		cells[x+1][y-1].setValue(cells[x+1][y-1].getValue()+1);
         	if (x != 0 && y != 0)
         		cells[x-1][y-1].setValue(cells[x-1][y-1].getValue()+1);
+        	//Die Werte (value) der Nachbarzellen einer Zelle mit Bombe werden um 1 erhöht
         			
             }
 	}
 
 	
 	
-	public Cell getCellbyIndex(int[] index){
+	public Cell getCellbyIndex(int[] index){		//Kann von einer Zelle aufgerufen werden um die Zelle anhand eines Index zurück zu bekommen
 		
 		return cells[index[0]][index[1]];
 	}

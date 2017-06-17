@@ -60,9 +60,9 @@ public class Minesweeper {
 	 */
 	private void initialize() {
 
-		frmMinesweeper = new JFrame();
+		frmMinesweeper = new JFrame(); 
 		frmMinesweeper.setTitle("Minesweeper");
-		frmMinesweeper.setBounds(500, 200, 451, 392);
+		frmMinesweeper.setBounds(500, 200, 451, 392); 					//Position und Größe des Fensters
 		frmMinesweeper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMinesweeper.getContentPane().setLayout(null);
 
@@ -99,7 +99,7 @@ public class Minesweeper {
 
 	}
 
-	private void initializeButtons() {
+	private void initializeButtons() { 							//Button werden erstellt
 
 		ButtonGroup bGroupGame = new ButtonGroup();
 		ButtonGroup bGroupDiff = new ButtonGroup();
@@ -126,7 +126,7 @@ public class Minesweeper {
 
 		bGroupGame.add(btnStandard);
 		bGroupGame.add(btnTreasure);
-		bGroupGame.add(btnBomb);
+		bGroupGame.add(btnBomb);					//Buttongruppe für die Auswahl des Spiels
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Schwierigkeitsgrad",
@@ -150,13 +150,13 @@ public class Minesweeper {
 
 		bGroupDiff.add(btnEasy);
 		bGroupDiff.add(btnMedium);
-		bGroupDiff.add(btnPro);
+		bGroupDiff.add(btnPro);				//Buttongruppe für die Auswahl des Schwierigkeitsgrads
 
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmMinesweeper.dispose();
-				Game game = new Game(btnEasy.isSelected() ? 0 : btnMedium.isSelected() ? 1 : 2, menu);
+				Game game = new Game(btnEasy.isSelected() ? 0 : btnMedium.isSelected() ? 1 : 2, menu);	//das Spielfenster wird je nach Auswahl des Schwierigkeitsgrads gestartet
 
 			}
 		});
