@@ -57,10 +57,14 @@ public class Cell implements ActionListener {
 					if (!flagSet && !markedUnsure) {
 						button.setIcon(ico);
 						flagSet = true;
+						game.flags--;
+						game.lblFlags.setText(game.flags+"");
 					} else 
 						if(!markedUnsure){
 							button.setIcon(null);
 							flagSet = false;
+							game.flags++;
+							game.lblFlags.setText(game.flags+"");
 							markUnsure();	//Setzt ein Fragezeichen bei einem zweiten Rechtsklick
 							
 						}

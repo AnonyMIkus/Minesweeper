@@ -15,12 +15,15 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.ImageIcon;
 import java.awt.Canvas;
 import java.awt.Button;
 import javax.swing.JToggleButton;
+import javax.swing.SwingConstants;
 import javax.swing.ButtonGroup;
 import javax.swing.SwingUtilities;
 
@@ -98,6 +101,21 @@ public class Minesweeper {
 
 		frmMinesweeper.setJMenuBar(bar);
 
+        JTextField txtPlayer = new JTextField();
+		txtPlayer.setBackground(UIManager.getColor("Button.light"));
+		txtPlayer.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPlayer.setText("Player1");
+		txtPlayer.setBounds(309, 220, 86, 20);
+		frmMinesweeper.getContentPane().add(txtPlayer);
+		txtPlayer.setColumns(10);
+		
+		JTextPane txtpnName = new JTextPane();
+		txtpnName.setBackground(UIManager.getColor("CheckBox.background"));
+		txtpnName.setText("Name:");
+		txtpnName.setBounds(309, 189, 90, 20);
+		frmMinesweeper.getContentPane().add(txtpnName);
+		
+
 	}
 
 	private void initializeButtons() { 							//Button werden erstellt
@@ -108,7 +126,7 @@ public class Minesweeper {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Spiel", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(82, 85, 118, 166);
+		panel.setBounds(36, 85, 118, 166);
 		frmMinesweeper.getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -132,7 +150,7 @@ public class Minesweeper {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Schwierigkeitsgrad",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(247, 83, 118, 166);
+		panel_1.setBounds(164, 85, 118, 166);
 		frmMinesweeper.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
@@ -162,7 +180,7 @@ public class Minesweeper {
 			}
 		});
 
-		btnStart.setBounds(276, 279, 89, 23);
+		btnStart.setBounds(309, 299, 89, 23);
 		frmMinesweeper.getContentPane().add(btnStart);
 
 	}

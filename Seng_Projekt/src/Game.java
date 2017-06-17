@@ -28,8 +28,10 @@ public class Game {
 	JFrame frmMinesweeper;
 	Minesweeper menu;
 	JPanel panel2;
+	JLabel lblFlags;
 	ImageIcon ico = new ImageIcon("img/flag.png"); //Bild der Flagge
 	int bombs;
+	int flags;
 	
 	int panelAnfPosX = 49;
 	int panelAnfPosY = 72;
@@ -57,6 +59,7 @@ public class Game {
 		dimensionY = mode == 0 ? 8 : mode == 1 ? 16 : 30;		//Dimensionen der Spielfeldgröße je nach Schwierigkeitsgrad
 		dimensionX = mode == 0 ? 8 : mode == 1 ? 16 : 16;
 		bombs =  mode == 0 ? 10 : mode == 1 ? 40 : 99;
+		flags=bombs;
 		frmMinesweeper = new JFrame();
 		frmMinesweeper.setTitle("Minesweeper");
 		frmMinesweeper.setResizable(false);
@@ -110,6 +113,15 @@ public class Game {
 		});
 		btnMenu.setBounds(126, 21, 143, 31);
 		frmMinesweeper.getContentPane().add(btnMenu);
+		
+		JLabel lblNewLabel = new JLabel("Fahnen ");
+		lblNewLabel.setBounds(70, 11, 46, 14);
+		frmMinesweeper.getContentPane().add(lblNewLabel);
+		
+		lblFlags = new JLabel(flags+"");
+		lblFlags.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFlags.setBounds(70, 29, 46, 14);
+		frmMinesweeper.getContentPane().add(lblFlags);
 		
 		
 	}
