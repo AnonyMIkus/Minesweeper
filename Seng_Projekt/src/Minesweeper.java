@@ -4,9 +4,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,21 +16,59 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.ImageIcon;
-import java.awt.Canvas;
-import java.awt.Button;
+
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.ButtonGroup;
-import javax.swing.SwingUtilities;
 
 public class Minesweeper {
 
 	private JFrame frmMinesweeper;
-	boolean selectedAnf = true;
-	boolean selectedErf = false;
-	boolean selectedProf = false;
-	Minesweeper menu = this;
+	private boolean selectedAnf = true;
+	private boolean selectedErf = false;
+	private boolean selectedProf = false;
+	
+	JFrame getFrmMinesweeper() {
+		return frmMinesweeper;
+	}
+
+	void setFrmMinesweeper(JFrame frmMinesweeper) {
+		this.frmMinesweeper = frmMinesweeper;
+	}
+
+	boolean isSelectedAnf() {
+		return selectedAnf;
+	}
+
+	void setSelectedAnf(boolean selectedAnf) {
+		this.selectedAnf = selectedAnf;
+	}
+
+	boolean isSelectedErf() {
+		return selectedErf;
+	}
+
+	void setSelectedErf(boolean selectedErf) {
+		this.selectedErf = selectedErf;
+	}
+
+	boolean isSelectedProf() {
+		return selectedProf;
+	}
+
+	void setSelectedProf(boolean selectedProf) {
+		this.selectedProf = selectedProf;
+	}
+
+	Minesweeper getMenu() {
+		return menu;
+	}
+
+	void setMenu(Minesweeper menu) {
+		this.menu = menu;
+	}
+
+	private Minesweeper menu = this;
 
 	/**
 	 * Launch the application.

@@ -18,17 +18,99 @@ import javax.swing.border.LineBorder;
 public class Cell implements ActionListener {
 	private JButton button;
 	private JLabel label;
-	boolean bomb = false;
-	boolean flagSet = false;
-	boolean markedUnsure = false;
+	private boolean bomb = false;
+	private boolean flagSet = false;
+	private boolean markedUnsure = false;
 	private int value = 0;
 	private int[] index;
-	Game game;
-	ImageIcon ico;
-	boolean uncovered = false;
-	ArrayList<Cell> neighbourCells;
-	public int dimensionX;
-	public int dimensionY;
+	private Game game;
+	private ImageIcon ico;
+	private boolean uncovered = false;
+	private ArrayList<Cell> neighbourCells;
+	private  int dimensionX;
+	private  int dimensionY;
+
+	
+
+	boolean isBomb() {
+		return bomb;
+	}
+
+	void setBomb(boolean bomb) {
+		this.bomb = bomb;
+	}
+
+	boolean isFlagSet() {
+		return flagSet;
+	}
+
+	void setFlagSet(boolean flagSet) {
+		this.flagSet = flagSet;
+	}
+
+	boolean isMarkedUnsure() {
+		return markedUnsure;
+	}
+
+	void setMarkedUnsure(boolean markedUnsure) {
+		this.markedUnsure = markedUnsure;
+	}
+
+	Game getGame() {
+		return game;
+	}
+
+	void setGame(Game game) {
+		this.game = game;
+	}
+
+	ImageIcon getIco() {
+		return ico;
+	}
+
+	void setIco(ImageIcon ico) {
+		this.ico = ico;
+	}
+
+	boolean isUncovered() {
+		return uncovered;
+	}
+
+	void setUncovered(boolean uncovered) {
+		this.uncovered = uncovered;
+	}
+
+	ArrayList<Cell> getNeighbourCells() {
+		return neighbourCells;
+	}
+
+	void setNeighbourCells(ArrayList<Cell> neighbourCells) {
+		this.neighbourCells = neighbourCells;
+	}
+
+	int getDimensionX() {
+		return dimensionX;
+	}
+
+	void setDimensionX(int dimensionX) {
+		this.dimensionX = dimensionX;
+	}
+
+	int getDimensionY() {
+		return dimensionY;
+	}
+
+	void setDimensionY(int dimensionY) {
+		this.dimensionY = dimensionY;
+	}
+
+	void setButton(JButton button) {
+		this.button = button;
+	}
+
+	void setIndex(int[] index) {
+		this.index = index;
+	}
 
 	public Cell(Game game, int[] index, ImageIcon flagItem) {	//Konstruktor der Zelle, Spiel-Obekt, Index der Zelle und Icon der Flagge wird mitgegeben
 
@@ -47,8 +129,8 @@ public class Cell implements ActionListener {
 		button.setMargin(new Insets(0, 0, 0, 0));
 		this.index = index;
 		this.game = game;
-		this.dimensionX = game.dimensionX;
-		this.dimensionY = game.dimensionY;
+		this.dimensionX = game.getDimensionX();
+		this.dimensionY = game.getDimensionY();
 
 		button.addMouseListener(new MouseAdapter() {		//Flagge setzen bei Rechtsklick
 			public void mouseReleased(MouseEvent e) {
@@ -57,14 +139,14 @@ public class Cell implements ActionListener {
 					if (!flagSet && !markedUnsure) {
 						button.setIcon(ico);
 						flagSet = true;
-						game.flags--;
-						game.lblFlags.setText(game.flags+"");
+						game.setFlags(game.getFlags() - 1);
+						game.getLblFlags().setText(game.getFlags()+"");
 					} else 
 						if(!markedUnsure){
 							button.setIcon(null);
 							flagSet = false;
-							game.flags++;
-							game.lblFlags.setText(game.flags+"");
+							game.setFlags(game.getFlags() + 1);
+							game.getLblFlags().setText(game.getFlags()+"");
 							markUnsure();	//Setzt ein Fragezeichen bei einem zweiten Rechtsklick
 							
 						}
@@ -109,7 +191,7 @@ public class Cell implements ActionListener {
 
 		if (bomb) {
 			uncoverAllBombs();
-			GameOver gameOver = new GameOver(game.menu, game);
+			GameOver gameOver = new GameOver(game.getMenu(), game);
 			gameOver.setVisible(true);
 			
 			
@@ -222,7 +304,7 @@ public class Cell implements ActionListener {
 	}
 
 	public void win() {
-		game.frmMinesweeper.dispose();
+		game.getFrmMinesweeper().dispose();
 		Gewonnen g = new Gewonnen();
 		g.setVisible(true);
 		
