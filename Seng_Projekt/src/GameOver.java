@@ -45,7 +45,7 @@ public class GameOver extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
-						game.frmMinesweeper.dispose();
+						game.getFrmMinesweeper().dispose();
 						menu.getFrame().setVisible(true);
 					}
 				});
