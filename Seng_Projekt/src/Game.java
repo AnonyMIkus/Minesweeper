@@ -15,7 +15,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-
 public class Game {
 	private Cell[][] cells;
 	private int mode;
@@ -40,7 +39,6 @@ public class Game {
 	private int panelProWidth = 850;
 
 	// Positionen und Skalierungen der Spielfelder
-
 	Cell[][] getCells() {
 		return cells;
 	}
@@ -201,11 +199,8 @@ public class Game {
 		this.panelProWidth = panelProWidth;
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	// Create the frame.
 	public Game(int mode, Minesweeper menu) {
-
 		this.mode = mode;
 		this.menu = menu;
 		dimensionY = mode == 0 ? 8 : mode == 1 ? 16 : 30; // Dimensionen der
@@ -396,7 +391,6 @@ public class Game {
 		panel.setOpaque(false); // das Panel mit den Zellen wird auf
 								// durchsichtig gesetzt, damit man die Labels
 								// dahinter bei Buttondruck sehen kann
-
 		return panel;
 	}
 
@@ -412,11 +406,11 @@ public class Game {
 			do {
 				x = rnd.nextInt(dimensionX);
 				y = rnd.nextInt(dimensionY);
-			} while (cells[x][y].isBomb()); // Mienen werden zufällig auf die Felder
-										// verteilt
+			} while (cells[x][y].isBomb()); // Mienen werden zufällig auf die
+											// Felder
+			// verteilt
 
 			cells[x][y].setBomb();
-
 			if (x != 0)
 				cells[x - 1][y].setValue(cells[x - 1][y].getValue() + 1);
 			if (x != dimensionX - 1)
@@ -443,10 +437,10 @@ public class Game {
 												// werden um die Zelle anhand
 												// eines Index zurück zu
 												// bekommen
-
 		return cells[index[0]][index[1]];
 	}
 
+	
 	public void uncoverAllBombs() {
 		for (int i = 0; i < dimensionX; i++) {
 			for (int j = 0; j < dimensionY; j++) {
@@ -454,14 +448,11 @@ public class Game {
 				if (cells[i][j].isBomb())
 					cells[i][j].uncover();
 			}
-
 		}
 	}
 
 	public void checkWin() {
-
 		int counter = 0;
-
 		for (int i = 0; i < dimensionX; i++) {
 			for (int j = 0; j < dimensionY; j++) {
 				if (cells[i][j].isUncovered() && !cells[i][j].isBomb()) {
@@ -469,7 +460,6 @@ public class Game {
 					if (counter == (dimensionX * dimensionY) - bombs)
 						cells[i][j].win();
 				}
-
 			}
 		}
 	}

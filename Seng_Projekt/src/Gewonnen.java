@@ -1,6 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -15,15 +12,7 @@ import javax.swing.border.TitledBorder;
 public class Gewonnen extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-
-
-	/**
-	 * Create the frame.
-	 */
+	// Create the frame.
 	public Gewonnen() {
 		
 		setTitle("Gewonnen!");
@@ -41,13 +30,9 @@ public class Gewonnen extends JFrame {
 		file.add(close);
 		
 		close.addActionListener(new ActionListener() {
-
-
-				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.exit(0);
 				}
-	
 		});
 		
 		bar.add(file);

@@ -1,15 +1,11 @@
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -101,40 +97,21 @@ public class Minesweeper {
 		frmMinesweeper = new JFrame(); 
 		frmMinesweeper.setResizable(false);
 		frmMinesweeper.setTitle("Minesweeper");
-		frmMinesweeper.setBounds(500, 200, 451, 392); 					//Position und Größe des Fensters
+		frmMinesweeper.setBounds(500, 200, 451, 392); //Position und Größe des Fensters
 		frmMinesweeper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmMinesweeper.getContentPane().setLayout(null);
+		frmMinesweeper.getContentPane().setLayout(null); //Reset Layout
 
-		initializeButtons();
-
+		//Layout für alle Text		
 		JTextArea txtrSoftwareengineering = new JTextArea();
-		txtrSoftwareengineering.setEditable(false);
+		txtrSoftwareengineering.setEditable(false); // Wird nicht mehr verändert?? Oder als Sicherheitsmaßnahme??
 		txtrSoftwareengineering.setText("Software-Engineering \nProjekt von \nSandra, Philipp, John, Chris");
-		txtrSoftwareengineering.setBounds(36, 267, 185, 55);
+		txtrSoftwareengineering.setBounds(36, 267, 185, 55); //Position and Size  of TextArea
 		frmMinesweeper.getContentPane().add(txtrSoftwareengineering);
 
 		JLabel lblMinesweeper = new JLabel("Minesweeper");
 		lblMinesweeper.setFont(new Font("Arial Black", Font.BOLD, 22));
 		lblMinesweeper.setBounds(126, 30, 196, 23);
 		frmMinesweeper.getContentPane().add(lblMinesweeper);
-
-		JMenuBar bar = new JMenuBar();
-		JMenu file = new JMenu("File");
-		JMenuItem close = new JMenuItem("Close");
-
-		file.add(close);
-
-		close.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-
-		bar.add(file);
-
-		frmMinesweeper.setJMenuBar(bar);
 
         JTextField txtPlayer = new JTextField();
 		txtPlayer.setBackground(UIManager.getColor("Button.light"));
@@ -150,11 +127,11 @@ public class Minesweeper {
 		txtpnName.setBounds(309, 189, 90, 20);
 		frmMinesweeper.getContentPane().add(txtpnName);
 		
-
+		//Buttons zu dem Layout hinzufügen.
+		initializeButtons();
 	}
 
-	private void initializeButtons() { 							//Button werden erstellt
-
+	private void initializeButtons() {
 		ButtonGroup bGroupGame = new ButtonGroup();
 		ButtonGroup bGroupDiff = new ButtonGroup();
 
@@ -165,6 +142,7 @@ public class Minesweeper {
 		frmMinesweeper.getContentPane().add(panel);
 		panel.setLayout(null);
 
+		//Buttongruppe für die Auswahl des Spiels
 		JToggleButton btnStandard = new JToggleButton("Standard");
 		btnStandard.setSelected(true);
 		btnStandard.setBounds(6, 16, 106, 46);
@@ -177,11 +155,12 @@ public class Minesweeper {
 		JToggleButton btnBomb = new JToggleButton("Bomb Game");
 		btnBomb.setBounds(6, 113, 106, 46);
 		panel.add(btnBomb);
-
+		
 		bGroupGame.add(btnStandard);
 		bGroupGame.add(btnTreasure);
-		bGroupGame.add(btnBomb);					//Buttongruppe für die Auswahl des Spiels
+		bGroupGame.add(btnBomb);	
 
+		//Buttongruppe für die Auswahl des Schwierigkeitsgrads
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Schwierigkeitsgrad",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -204,20 +183,18 @@ public class Minesweeper {
 
 		bGroupDiff.add(btnEasy);
 		bGroupDiff.add(btnMedium);
-		bGroupDiff.add(btnPro);				//Buttongruppe für die Auswahl des Schwierigkeitsgrads
+		bGroupDiff.add(btnPro);				
 
+		//Definiton des Startbuttons
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmMinesweeper.dispose();
 				Game game = new Game(btnEasy.isSelected() ? 0 : btnMedium.isSelected() ? 1 : 2, menu);	//das Spielfenster wird je nach Auswahl des Schwierigkeitsgrads gestartet
-
 			}
 		});
-
 		btnStart.setBounds(309, 299, 89, 23);
 		frmMinesweeper.getContentPane().add(btnStart);
-
 	}
 
 	public JFrame getFrame() {

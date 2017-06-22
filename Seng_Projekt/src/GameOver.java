@@ -15,14 +15,7 @@ public class GameOver extends JDialog {
 	Game game;
 
 	private final JPanel contentPanel = new JPanel();
-
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the dialog.
-	 */
+	// Create the dialog.
 	public GameOver(Minesweeper menu, Game game) {
 		setTitle("Verloren!");
 		
