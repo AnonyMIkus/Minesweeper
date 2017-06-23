@@ -54,22 +54,6 @@ public class Cell implements ActionListener {
 		this.markedUnsure = markedUnsure;
 	}
 
-	Game getGame() {
-		return game;
-	}
-
-	void setGame(Game game) {
-		this.game = game;
-	}
-
-	ImageIcon getIco() {
-		return ico;
-	}
-
-	void setIco(ImageIcon ico) {
-		this.ico = ico;
-	}
-
 	boolean isUncovered() {
 		return uncovered;
 	}
@@ -86,42 +70,9 @@ public class Cell implements ActionListener {
 		this.neighbourCells = neighbourCells;
 	}
 
-	int getDimensionX() {
-		return dimensionX;
-	}
-
-	void setDimensionX(int dimensionX) {
-		this.dimensionX = dimensionX;
-	}
-
-	int getDimensionY() {
-		return dimensionY;
-	}
-
-	void setDimensionY(int dimensionY) {
-		this.dimensionY = dimensionY;
-	}
-
-	void setButton(JButton button) {
-		this.button = button;
-	}
-
-	void setIndex(int[] index) {
-		this.index = index;
-	}
-
-	public Cell(Game game, int[] index, ImageIcon flagItem) { // Konstruktor der
-																// Zelle,
-																// Spiel-Obekt,
-																// Index der
-																// Zelle und
-																// Icon der
-																// Flagge wird
-																// mitgegeben
-
+	public Cell(Game game, int[] index, ImageIcon flagItem) { // Konstruktor derZelle, Spiel-Obekt, Index der Zelle und Icon der Flagge wird mitgegeben.
 		button = new JButton();
 		this.ico = flagItem;
-
 		label = new JLabel(); // Hintergrundlabel der Zelle
 		label.setVerticalAlignment(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -133,8 +84,8 @@ public class Cell implements ActionListener {
 		button.setMargin(new Insets(0, 0, 0, 0));
 		this.index = index;
 		this.game = game;
-		this.dimensionX = game.getDimensionX();
-		this.dimensionY = game.getDimensionY();
+		this.dimensionX = game.getGl().getDimensionX();
+		this.dimensionY = game.getGl().getDimensionY();
 
 		button.addMouseListener(new MouseAdapter() { // Flagge setzen bei
 														// Rechtsklick
@@ -157,7 +108,6 @@ public class Cell implements ActionListener {
 						button.setIcon(null);
 						flagSet = false;
 						deMarkUnsure(); // Löscht das Fragezeichen
-
 					}
 					// Wenn noch keine Flagge gesetzt, Flagge setzen, ansonsten
 					// Flagge wegnehmen
@@ -165,45 +115,33 @@ public class Cell implements ActionListener {
 			}
 
 			private void deMarkUnsure() {
-
 				button.setText(null);
 				markedUnsure = false;
-
 			}
 
 			private void markUnsure() {
-
 				markedUnsure = true;
 				button.setFont(new Font("Arial Black", Font.PLAIN, 25));
 				button.setText("?");
-
 			}
-
 		});
-
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (!flagSet) {
 			uncover();
-
 			// Bei Linksklick aufdecken, falls keine Flagge gesetzt ist
-
 			if (bomb) {
 				uncoverAllBombs();
 				GameOver gameOver = new GameOver(game.getMenu(), game);
 				gameOver.setVisible(true);
-
 				// Wenn auf dem Feld eine Miene ist, Game Over
 			}
 			if (this.getValue() == 0 && !this.bomb)
 				uncoverNeighbours();
-
 			// Wenn das Feld leer ist, Nachbarn aufdecken
 			game.checkWin();
 		}
-
 	}
 
 	public void uncover() {
@@ -214,10 +152,7 @@ public class Cell implements ActionListener {
 	}
 
 	public void uncoverNeighbours() {
-
-		getNeighbours(); // Befüllt die neighbourCells Liste, in der die
-							// Nachbarzellen gespeichert sind
-
+		getNeighbours(); // Befüllt die neighbourCells Liste, in der die Nachbarzellen gespeichert sind.
 		for (int i = 0; i < neighbourCells.size(); i++) {
 			if (!neighbourCells.get(i).uncovered && (!neighbourCells.get(i).bomb || neighbourCells.get(i).flagSet)) {
 				neighbourCells.get(i).uncover();
@@ -235,7 +170,6 @@ public class Cell implements ActionListener {
 		bomb = true;
 		label.setText("X");
 		label.setForeground(Color.RED);
-
 		// setzen einer Miene bei Spielstart
 	}
 
@@ -300,7 +234,6 @@ public class Cell implements ActionListener {
 			neighbourCells.add(game.getCellbyIndex(new int[] { x - 1, y + 1 }));
 		if (x != 0 && y != 0)
 			neighbourCells.add(game.getCellbyIndex(new int[] { x - 1, y - 1 }));
-
 		// befüllt die neighbourCells Liste mit den Nachbarn der Zelle. Dabei
 		// werden Zellen, die am Rand des Spielfelds liegen berücksichtigt
 	}
