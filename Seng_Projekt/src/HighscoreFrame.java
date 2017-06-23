@@ -57,9 +57,6 @@ public class HighscoreFrame {
 			playerPanel.add(playerText.get(i));
 			timerPanel.add(timeText.get(i));
 		}
-		// postionPanel.add(new JLabel("No more Postion"));
-		// playerPanel.add(new JLabel("No more Player"));
-		// timerPanel.add(new JLabel("No more Submit"));
 
 		submitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
