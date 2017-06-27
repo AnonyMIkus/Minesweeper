@@ -22,9 +22,28 @@ public class Game {
 	private Minesweeper menu;
 	private JPanel panel2;
 	private JLabel lblFlags;
-	private ImageIcon ico = new ImageIcon("img/flag.png"); // Bild der Flagge
+	private ImageIcon flag = new ImageIcon("img/flag.png"); // Bild der Flagge
+	private ImageIcon mine = new ImageIcon("img/mine2.png");
 	private int bombs;
 	private int flags;
+	private JButton btnMenu;
+	private boolean gameLost = false;
+	
+	public boolean isGameLost() {
+		return gameLost;
+	}
+
+	public void setGameLost(boolean gameLost) {
+		this.gameLost = gameLost;
+	}
+
+	public JButton getBtnMenu() {
+		return btnMenu;
+	}
+
+	public void setBtnMenu(JButton btnMenu) {
+		this.btnMenu = btnMenu;
+	}
 
 	// Positionen und Skalierungen der Spielfelder
 	public gameLibrary getGl() {
@@ -78,6 +97,22 @@ public class Game {
 	void setFlags(int flags) {
 		this.flags = flags;
 	}
+	
+	public ImageIcon getFlag() {
+		return flag;
+	}
+
+	public void setFlag(ImageIcon flag) {
+		this.flag = flag;
+	}
+
+	public ImageIcon getMine() {
+		return mine;
+	}
+
+	public void setMine(ImageIcon mine) {
+		this.mine = mine;
+	}
 
 	// Create the frame.
 	public Game(int mode, Minesweeper menu) {
@@ -122,7 +157,7 @@ public class Game {
 		timer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		timer.setText("00:00"); // Zeitangabe. Wäre durch die Variable "Zeit" zu ersetzen
 
-		JButton btnMenu = new JButton("zur\u00FCck zum Hauptmen\u00FC"); // Führt zurück zum Hauptmenü.
+		btnMenu = new JButton("zur\u00FCck zum Hauptmen\u00FC"); // Führt zurück zum Hauptmenü.
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmMinesweeper.dispose();
@@ -179,13 +214,14 @@ public class Game {
 		panel2.setBounds(panel.getBounds());
 
 		frmMinesweeper.setBounds(500, 200, width + posX + 50, height + posY + 100); // die Größe desFensters ist abhängig von der Größe des Spielfeldes.
-		ico.setImage(ico.getImage().getScaledInstance(width / gl.getDimensionY() - 5, height / gl.getDimensionX() - 5, Image.SCALE_DEFAULT)); // Größe der Flagge, die in einem Button angezeigt wird. Abhängig von der Größe des Spielfeldes.
+		flag.setImage(flag.getImage().getScaledInstance(width / gl.getDimensionY() - 5, height / gl.getDimensionX() - 5, Image.SCALE_DEFAULT)); // Größe der Flagge, die in einem Button angezeigt wird. Abhängig von der Größe des Spielfeldes.
+		mine.setImage(mine.getImage().getScaledInstance(width / gl.getDimensionY() - 5, height / gl.getDimensionX() - 5, Image.SCALE_DEFAULT)); // Größe der Miene, die in einem Button angezeigt wird. Abhängig von der Größe des Spielfeldes.
 
 		cells = new Cell[gl.getDimensionX()][gl.getDimensionY()]; // Array "cells" wird erstellt mit den Dimensionen der Spielfeldgröße
 
 		for (int i = 0; i < gl.getDimensionX(); i++) {
 			for (int j = 0; j < gl.getDimensionY(); j++) {
-				cells[i][j] = new Cell(this, new int[] { i, j }, ico); // Cell-Objekte werden erstellt, Game-Objekt, Index der Zelle und Icon für die Flagge werden mitgegeben.
+				cells[i][j] = new Cell(this, new int[] { i, j }); // Cell-Objekte werden erstellt, Game-Objekt, Index der Zelle und Icon für die Flagge werden mitgegeben.
 				panel2.add(cells[i][j].getLabel()); // Hintergrundpanel wird befüllt mit den Labels (Hintergrundbildern) der Zellen.
 				panel.add(cells[i][j].getButton()); // Vordergrundpanel wird befüllt mit den Buttons der Zellen.
 			}
@@ -195,6 +231,8 @@ public class Game {
 		panel.setOpaque(false); // das Panel mit den Zellen wird auf durchsichtig gesetzt, damit man die Labels dahinter bei Buttondruck sehen kann.
 		return panel;
 	}
+
+	
 
 	private void spreadBombs() {
 		Random rnd = new Random();

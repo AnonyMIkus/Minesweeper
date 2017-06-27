@@ -24,7 +24,8 @@ public class Cell implements ActionListener {
 	private int value = 0;
 	private int[] index;
 	private Game game;
-	private ImageIcon ico;
+	private ImageIcon flag;
+	private ImageIcon mine;
 	private boolean uncovered = false;
 	private ArrayList<Cell> neighbourCells;
 	private int dimensionX;
@@ -70,12 +71,14 @@ public class Cell implements ActionListener {
 		this.neighbourCells = neighbourCells;
 	}
 
-	public Cell(Game game, int[] index, ImageIcon flagItem) { // Konstruktor derZelle, Spiel-Obekt, Index der Zelle und Icon der Flagge wird mitgegeben.
+	public Cell(Game game, int[] index) { // Konstruktor derZelle, Spiel-Obekt, Index der Zelle und Icon der Flagge wird mitgegeben.
 		button = new JButton();
-		this.ico = flagItem;
+		this.flag = game.getFlag();
+		this.mine = game.getMine();
 		label = new JLabel(); // Hintergrundlabel der Zelle
 		label.setVerticalAlignment(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setIconTextGap(-10);
 		label.setPreferredSize(new Dimension(20, 20));
 		label.setBorder(new LineBorder(Color.BLACK, 1));
 		// Ausrichtung der Beschriftung der Hintergrundlabels der Zelle
@@ -90,10 +93,10 @@ public class Cell implements ActionListener {
 		button.addMouseListener(new MouseAdapter() { // Flagge setzen bei
 														// Rechtsklick
 			public void mouseReleased(MouseEvent e) {
-				if (SwingUtilities.isRightMouseButton(e)) {
+				if (SwingUtilities.isRightMouseButton(e) && !game.isGameLost()) {
 
 					if (!flagSet && !markedUnsure) {
-						button.setIcon(ico);
+						button.setIcon(flag);
 						flagSet = true;
 						game.setFlags(game.getFlags() - 1);
 						game.getLblFlags().setText(game.getFlags() + "");
@@ -128,13 +131,15 @@ public class Cell implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		if (!flagSet) {
+		if (!flagSet && !game.isGameLost()) {
 			uncover();
 			// Bei Linksklick aufdecken, falls keine Flagge gesetzt ist
 			if (bomb) {
 				uncoverAllBombs();
 				GameOver gameOver = new GameOver(game.getMenu(), game);
 				gameOver.setVisible(true);
+				game.getBtnMenu().setVisible(false);
+				game.setGameLost(true);
 				// Wenn auf dem Feld eine Miene ist, Game Over
 			}
 			if (this.getValue() == 0 && !this.bomb)
@@ -168,8 +173,9 @@ public class Cell implements ActionListener {
 
 	public void setBomb() {
 		bomb = true;
-		label.setText("X");
-		label.setForeground(Color.RED);
+		label.setIcon(mine);
+
+	
 		// setzen einer Miene bei Spielstart
 	}
 

@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 
 public class Minesweeper {
 
@@ -23,6 +25,7 @@ public class Minesweeper {
 	private boolean selectedAnf = true;
 	private boolean selectedErf = false;
 	private boolean selectedProf = false;
+	private ImageIcon bomb = new ImageIcon("img/mine.png");
 	
 	JFrame getFrmMinesweeper() {
 		return frmMinesweeper;
@@ -110,7 +113,7 @@ public class Minesweeper {
 
 		JLabel lblMinesweeper = new JLabel("Minesweeper");
 		lblMinesweeper.setFont(new Font("Arial Black", Font.BOLD, 22));
-		lblMinesweeper.setBounds(126, 30, 196, 23);
+		lblMinesweeper.setBounds(126, 30, 178, 23);
 		frmMinesweeper.getContentPane().add(lblMinesweeper);
 
         JTextField txtPlayer = new JTextField();
@@ -127,6 +130,8 @@ public class Minesweeper {
 		txtpnName.setBounds(309, 189, 90, 20);
 		frmMinesweeper.getContentPane().add(txtpnName);
 		
+		bomb.setImage(bomb.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)); // Größe der Miene, die in einem Button angezeigt wird. Abhängig von der Größe des Spielfeldes.
+
 		//Buttons zu dem Layout hinzufügen.
 		initializeButtons();
 	}
@@ -195,6 +200,16 @@ public class Minesweeper {
 		});
 		btnStart.setBounds(309, 299, 89, 23);
 		frmMinesweeper.getContentPane().add(btnStart);
+		
+		JLabel lblBomb2 = new JLabel("");
+		lblBomb2.setBounds(308, 27, 30, 30);
+		lblBomb2.setIcon(bomb);
+		frmMinesweeper.getContentPane().add(lblBomb2);
+		
+		JLabel lblBomb1 = new JLabel("");
+		lblBomb1.setBounds(90, 27, 30, 30);
+		lblBomb1.setIcon(bomb);
+		frmMinesweeper.getContentPane().add(lblBomb1);
 	}
 
 	public JFrame getFrame() {
