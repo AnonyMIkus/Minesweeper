@@ -19,6 +19,7 @@ public class Cell implements ActionListener {
 	private JButton button;
 	private JLabel label;
 	private boolean bomb = false;
+	private boolean treasure=false;
 	private boolean flagSet = false;
 	private boolean markedUnsure = false;
 	private int value = 0;
@@ -30,6 +31,14 @@ public class Cell implements ActionListener {
 	private ArrayList<Cell> neighbourCells;
 	private int dimensionX;
 	private int dimensionY;
+	
+	boolean isTreasure(){
+		return treasure;
+	}
+	
+	void setTreasure(boolean bomb){
+		this.treasure=bomb;
+	}
 
 	boolean isBomb() {
 		return bomb;
@@ -142,6 +151,8 @@ public class Cell implements ActionListener {
 				game.setGameLost(true);
 				// Wenn auf dem Feld eine Miene ist, Game Over
 			}
+			if (treasure){
+				win();}
 			if (this.getValue() == 0 && !this.bomb)
 				uncoverNeighbours();
 			// Wenn das Feld leer ist, Nachbarn aufdecken

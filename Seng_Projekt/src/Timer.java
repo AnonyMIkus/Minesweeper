@@ -22,6 +22,6 @@ public class Timer extends Thread{
 		zeit="0"+Integer.toString(c/60)+":"+"0"+Integer.toString(c%60);}
 		}}
 		Game.getTimer().setText(zeit);
-		//timer.setText(zeit);
+		
 	}}
 }

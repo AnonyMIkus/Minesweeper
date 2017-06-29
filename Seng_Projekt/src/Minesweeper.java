@@ -195,7 +195,15 @@ public class Minesweeper {
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmMinesweeper.dispose();
+				if (btnStandard.isSelected()){
 				Game game = new Game(btnEasy.isSelected() ? 0 : btnMedium.isSelected() ? 1 : 2, menu);	//das Spielfenster wird je nach Auswahl des Schwierigkeitsgrads gestartet
+			}
+				if (btnTreasure.isSelected()){
+					Game game = new Game(btnEasy.isSelected() ? 3 : btnMedium.isSelected() ? 4 : 5, menu);	//das Spielfenster wird je nach Auswahl des Schwierigkeitsgrads gestartet
+				}
+				if (btnBomb.isSelected()){
+					Game game = new Game(btnEasy.isSelected() ? 6 : btnMedium.isSelected() ? 7 : 8, menu);	//das Spielfenster wird je nach Auswahl des Schwierigkeitsgrads gestartet
+				}
 			}
 		});
 		btnStart.setBounds(309, 299, 89, 23);
