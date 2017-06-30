@@ -30,6 +30,18 @@ public class Game {
 	private Timer time=new Timer();
 	private JButton btnMenu;
 	private boolean gameLost = false;
+	private int wincounter=0;
+
+	
+	public int getWincounter() {
+		return wincounter;
+	}
+
+	public void setWincounter(int wincounter) {
+		this.wincounter = wincounter;
+	}
+
+	
 	
 	public boolean isGameLost() {
 		return gameLost;
@@ -365,6 +377,10 @@ public class Game {
 				cells[x - 1][y - 1].setValue(cells[x - 1][y - 1].getValue() + 1);
 		}}
 	
+
+	public void setGl(gameLibrary gl) {
+		this.gl = gl;
+	}
 
 	private void spreadBombs() {
 		Random rnd = new Random();

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -139,10 +140,13 @@ public class Cell implements ActionListener {
 		});
 	}
 
+	
+	
 	public void actionPerformed(ActionEvent arg0) {
 		if (!flagSet && !game.isGameLost()) {
 			uncover();
 			// Bei Linksklick aufdecken, falls keine Flagge gesetzt ist
+			if(game.getGl().getMode()!=6 && game.getGl().getMode()!=7 && game.getGl().getMode()!=8){
 			if (bomb) {
 				uncoverAllBombs();
 				GameOver gameOver = new GameOver(game.getMenu(), game);
@@ -152,12 +156,70 @@ public class Cell implements ActionListener {
 				// Wenn auf dem Feld eine Miene ist, Game Over
 			}
 			if (treasure){
-				win();}
+				win();
+			}
 			if (this.getValue() == 0 && !this.bomb)
 				uncoverNeighbours();
 			// Wenn das Feld leer ist, Nachbarn aufdecken
 			game.checkWin();
 		}
+			
+
+			if(game.getGl().getMode()==6 || game.getGl().getMode()==7 || game.getGl().getMode()==8){
+				if (!bomb) {
+					uncoverAllBombs();
+					GameOver gameOver = new GameOver(game.getMenu(), game);
+					gameOver.setVisible(true);
+					game.getBtnMenu().setVisible(false);
+					game.setGameLost(true);
+					// Wenn auf dem Feld eine Miene ist, Game Over
+				}
+				
+				if (bomb){
+				game.setWincounter(game.getWincounter()+1);
+					if(game.getWincounter()==10 && game.getGl().getMode()==6 || game.getWincounter()==40 && game.getGl().getMode()==7
+							|| game.getWincounter()==99 && game.getGl().getMode()==8){
+						win();
+						Timer.currentThread().stop();
+											
+					}
+				uncoverBombNeighbours();
+			}
+			
+		}
+			}
+	}
+
+	private void uncoverBombNeighbours() {
+		getNeighbours();
+
+		for (int i = 0; i < neighbourCells.size(); i++) {
+			if (!neighbourCells.get(i).uncovered && (!neighbourCells.get(i).bomb || neighbourCells.get(i).flagSet)) {
+				if (neighbourCells.get(i).getValue() == 1 || neighbourCells.get(i).getValue()==0){
+					neighbourCells.get(i).uncover();
+					neighbourCells.get(i).uncoverNeighbours();
+				}
+				else{
+					checkSurroundings(neighbourCells.get(i));
+				}
+			}
+			// deckt die Nachbarzellen auf, wenn diese keine Bombe oder Flagge
+			// enthalten. Wenn diese leer sind, werden deren Nachbarzellen auch
+			// aufgedeckt ist das ziel......
+		}
+
+	}
+
+	private void checkSurroundings(Cell cell) {
+	cell.getNeighbours();
+	int counter=0;
+	for (int i=0;i<cell.neighbourCells.size();i++){
+		if (cell.neighbourCells.get(i).isBomb() && cell.neighbourCells.get(i).uncovered){
+			counter++;
+		}
+	}
+	if (cell.getValue()==counter)
+		cell.uncover();
 	}
 
 	public void uncover() {
