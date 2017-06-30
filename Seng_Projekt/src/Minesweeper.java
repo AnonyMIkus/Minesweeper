@@ -25,6 +25,7 @@ public class Minesweeper {
 	private boolean selectedAnf = true;
 	private boolean selectedErf = false;
 	private boolean selectedProf = false;
+	private JTextPane txtpnName;
 	private ImageIcon bomb = new ImageIcon("img/mine.png");
 	
 	JFrame getFrmMinesweeper() {
@@ -124,7 +125,7 @@ public class Minesweeper {
 		frmMinesweeper.getContentPane().add(txtPlayer);
 		txtPlayer.setColumns(10);
 		
-		JTextPane txtpnName = new JTextPane();
+		txtpnName = new JTextPane();
 		txtpnName.setBackground(UIManager.getColor("CheckBox.background"));
 		txtpnName.setText("Name:");
 		txtpnName.setBounds(309, 189, 90, 20);
@@ -168,7 +169,7 @@ public class Minesweeper {
 		//Buttongruppe für die Auswahl des Schwierigkeitsgrads
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Schwierigkeitsgrad",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBounds(164, 85, 118, 166);
 		frmMinesweeper.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
@@ -194,6 +195,7 @@ public class Minesweeper {
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				frmMinesweeper.dispose();
 				if (btnStandard.isSelected()){
 				Game game = new Game(btnEasy.isSelected() ? 0 : btnMedium.isSelected() ? 1 : 2, menu);	//das Spielfenster wird je nach Auswahl des Schwierigkeitsgrads gestartet
@@ -218,6 +220,14 @@ public class Minesweeper {
 		lblBomb1.setBounds(90, 27, 30, 30);
 		lblBomb1.setIcon(bomb);
 		frmMinesweeper.getContentPane().add(lblBomb1);
+	}
+
+	JTextPane getTxtpnName() {
+		return txtpnName;
+	}
+
+	void setTxtpnName(JTextPane txtpnName) {
+		this.txtpnName = txtpnName;
 	}
 
 	public JFrame getFrame() {
