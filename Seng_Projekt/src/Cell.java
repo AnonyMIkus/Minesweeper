@@ -149,6 +149,7 @@ public class Cell implements ActionListener {
 			if(game.getGl().getMode()!=6 && game.getGl().getMode()!=7 && game.getGl().getMode()!=8){
 			if (bomb) {
 				uncoverAllBombs();
+				game.getTime().reset();
 				GameOver gameOver = new GameOver(game.getMenu(), game);
 				gameOver.setVisible(true);
 				game.getBtnMenu().setVisible(false);
@@ -166,7 +167,7 @@ public class Cell implements ActionListener {
 			
 
 			if(game.getGl().getMode()==6 || game.getGl().getMode()==7 || game.getGl().getMode()==8){
-				if (!bomb) {
+		/*		if (!bomb) {
 					uncoverAllBombs();
 					GameOver gameOver = new GameOver(game.getMenu(), game);
 					gameOver.setVisible(true);
@@ -174,7 +175,7 @@ public class Cell implements ActionListener {
 					game.setGameLost(true);
 					// Wenn auf dem Feld eine Miene ist, Game Over
 				}
-				
+		*/		
 				if (bomb){
 				game.setWincounter(game.getWincounter()+1);
 					if(game.getWincounter()==10 && game.getGl().getMode()==6 || game.getWincounter()==40 && game.getGl().getMode()==7
@@ -321,6 +322,7 @@ public class Cell implements ActionListener {
 		game.getFrmMinesweeper().dispose();
 		Gewonnen g = new Gewonnen();
 		g.setVisible(true);
+		game.getTime().reset();
 	}
 
 }

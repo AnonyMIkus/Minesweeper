@@ -188,6 +188,7 @@ public class Game {
 		btnMenu = new JButton("zur\u00FCck zum Hauptmen\u00FC"); // Führt zurück zum Hauptmenü.
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				time.reset();
 				frmMinesweeper.dispose();
 				menu.getFrame().setVisible(true);
 			}
@@ -206,6 +207,14 @@ public class Game {
 
 	}
 	
+	public Timer getTime() {
+		return time;
+	}
+
+	public void setTime(Timer time) {
+		this.time = time;
+	}
+
 	public static JLabel getTimer() {
 		return timer;
 	}

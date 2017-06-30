@@ -1,10 +1,14 @@
 
 public class Timer extends Thread{
 	
+	boolean stop;
+	
 	 public void run(){
 		String zeit;
+		stop=false;
 	Thread thread = new Thread();
-	for (int c=0; c<9999;c++){
+	int c=0;
+	while (c<9999 && !stop){
 		try {
 			thread.sleep(1000);
 		} catch (InterruptedException e1) {
@@ -22,6 +26,10 @@ public class Timer extends Thread{
 		zeit="0"+Integer.toString(c/60)+":"+"0"+Integer.toString(c%60);}
 		}}
 		Game.getTimer().setText(zeit);
-		
-	}}
+		c++;
+	}
+	 }
+	 public void reset(){
+		 stop=true;
+	 }
 }
