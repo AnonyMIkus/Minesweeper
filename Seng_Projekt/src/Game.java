@@ -15,24 +15,31 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+/**
+ * Game is set up field and triggers nessecary components.
+ * 
+ * @author John Voronkov
+ * 
+ * @version 2.0
+ */
+
 public class Game {
-	private gameLibrary gl = new gameLibrary();
+	private static gameLibrary gl = new gameLibrary();
 	private Cell[][] cells;
 	private JFrame frmMinesweeper;
 	private Minesweeper menu;
 	private JPanel panel2;
 	private JLabel lblFlags;
 	private static JLabel timer;
-	private ImageIcon flag = new ImageIcon("img/flag.png"); // Bild der Flagge
+	private ImageIcon flag = new ImageIcon("img/flag.png");
 	private ImageIcon mine = new ImageIcon("img/mine2.png");
 	private int bombs;
 	private int flags;
-	private Timer time=new Timer();
+	private Timer time = new Timer();
 	private JButton btnMenu;
 	private boolean gameLost = false;
-	private int wincounter=0;
+	private int wincounter = 0;
 
-	
 	public int getWincounter() {
 		return wincounter;
 	}
@@ -41,8 +48,6 @@ public class Game {
 		this.wincounter = wincounter;
 	}
 
-	
-	
 	public boolean isGameLost() {
 		return gameLost;
 	}
@@ -59,11 +64,10 @@ public class Game {
 		this.btnMenu = btnMenu;
 	}
 
-	// Positionen und Skalierungen der Spielfelder
-	public gameLibrary getGl() {
+	public static gameLibrary getGl() {
 		return gl;
 	}
-	
+
 	JFrame getFrmMinesweeper() {
 		return frmMinesweeper;
 	}
@@ -111,7 +115,7 @@ public class Game {
 	void setFlags(int flags) {
 		this.flags = flags;
 	}
-	
+
 	public ImageIcon getFlag() {
 		return flag;
 	}
@@ -128,26 +132,45 @@ public class Game {
 		this.mine = mine;
 	}
 
-	// Create the frame.
-	public Game(int mode, Minesweeper menu) {
+	public Timer getTime() {
+		return time;
+	}
 
+	public void setTime(Timer time) {
+		this.time = time;
+	}
+
+	public static JLabel getTimer() {
+		return timer;
+	}
+
+	public void setTimer(JLabel timer) {
+		this.timer = timer;
+	}
+
+	/**
+	 * Creating window with all components.
+	 * 
+	 * @param mode setting difficulty of the game
+	 * @param menu for returning to main menu
+	 */
+	public Game(int mode, Minesweeper menu) {
 		gl.setMode(mode);
-		this.menu = menu;
-		if (gl.getMode()==0||gl.getMode()==1||gl.getMode()==2){
-			gl.setDimensionY( gl.getMode() == 0 ? 8 : gl.getMode() == 1 ? 16 : 30); // Dimensionen der Spielfeldgröße je nach Schwierigkeitsgrad.
+		if (gl.getMode() == 0 || gl.getMode() == 1 || gl.getMode() == 2) {
+			gl.setDimensionY(gl.getMode() == 0 ? 8 : gl.getMode() == 1 ? 16 : 30);
 			gl.setDimensionX(gl.getMode() == 0 ? 8 : gl.getMode() == 1 ? 16 : 16);
 			bombs = gl.getMode() == 0 ? 10 : gl.getMode() == 1 ? 40 : 99;
-			}
-			if (gl.getMode()==3||gl.getMode()==4||gl.getMode()==5){
-			gl.setDimensionY( gl.getMode() == 3 ? 8 : gl.getMode() == 4 ? 16 : 30); // Dimensionen der Spielfeldgröße je nach Schwierigkeitsgrad.
-			gl.setDimensionX(gl.getMode() == 3 ? 8 : gl.getMode() == 4 ? 16 : 16);  // Hier für Treasure Hunt
+		}
+		if (gl.getMode() == 3 || gl.getMode() == 4 || gl.getMode() == 5) {
+			gl.setDimensionY(gl.getMode() == 3 ? 8 : gl.getMode() == 4 ? 16 : 30);
+			gl.setDimensionX(gl.getMode() == 3 ? 8 : gl.getMode() == 4 ? 16 : 16);
 			bombs = gl.getMode() == 3 ? 10 : gl.getMode() == 4 ? 40 : 99;
-			}
-			if (gl.getMode()==6||gl.getMode()==7||gl.getMode()==8){
-			gl.setDimensionY( gl.getMode() == 6 ? 8 : gl.getMode() == 7 ? 16 : 30); // Dimensionen der Spielfeldgröße je nach Schwierigkeitsgrad.
+		}
+		if (gl.getMode() == 6 || gl.getMode() == 7 || gl.getMode() == 8) {
+			gl.setDimensionY(gl.getMode() == 6 ? 8 : gl.getMode() == 7 ? 16 : 30);
 			gl.setDimensionX(gl.getMode() == 6 ? 8 : gl.getMode() == 7 ? 16 : 16);
 			bombs = gl.getMode() == 6 ? 10 : gl.getMode() == 7 ? 40 : 99;
-			}
+		}
 		flags = bombs;
 		frmMinesweeper = new JFrame();
 		frmMinesweeper.setTitle("Minesweeper");
@@ -173,19 +196,18 @@ public class Game {
 		bar.add(edit);
 		frmMinesweeper.setJMenuBar(bar);
 
-		JPanel panel = new JPanel(); // Umrandung für die Zeitangabe
-		panel.setBorder(new TitledBorder(null, "Zeit", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Time", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 11, 50, 50);
 		frmMinesweeper.getContentPane().add(panel);
 
-		timer=new JLabel();
+		timer = new JLabel();
 		panel.add(timer);
 		timer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		time.start();
 		timer.setText("00:00");
-	 // Zeitangabe. Wäre durch die Variable "Zeit" zu ersetzen
-			
-		btnMenu = new JButton("zur\u00FCck zum Hauptmen\u00FC"); // Führt zurück zum Hauptmenü.
+
+		btnMenu = new JButton("Back to main menu");
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				time.reset();
@@ -204,37 +226,25 @@ public class Game {
 		lblFlags.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFlags.setBounds(70, 29, 46, 14);
 		frmMinesweeper.getContentPane().add(lblFlags);
-
-	}
-	
-	public Timer getTime() {
-		return time;
 	}
 
-	public void setTime(Timer time) {
-		this.time = time;
-	}
-
-	public static JLabel getTimer() {
-		return timer;
-	}
-
-	public void setTimer(JLabel timer) {
-		this.timer = timer;
-	}
-
-	public JPanel addCells() { // Methode fügt die Zellen hinzu
-		JPanel panel = new JPanel(new GridLayout(gl.getDimensionX(), gl.getDimensionY())); // panel  = Hier werden die Zellen reingesetzt.
-		panel2 = new JPanel(new GridLayout(gl.getDimensionX(), gl.getDimensionY())); // panel2 = hinter den Zellen die Zahlenangaben, Bombenbildchen etc.
+	/**
+	 * Creating field of the game.
+	 * 
+	 * @return panel with prepared field.
+	 */
+	public JPanel addCells() {
+		JPanel panel = new JPanel(new GridLayout(gl.getDimensionX(), gl.getDimensionY()));
+		panel2 = new JPanel(new GridLayout(gl.getDimensionX(), gl.getDimensionY()));
 
 		int posX = 0;
 		int posY = 0;
 		int width = 0;
 		int height = 0;
 
-		switch (gl.getMode()) { // Je nach gewähltem Schwierigkeitsgrad (mode) werden die Position und Skalierung des Spielfeldes gesetzt.
+		switch (gl.getMode()) {
 		case 0:
-		case 3:	
+		case 3:
 		case 6:
 			posX = gl.getPanelAnfPosX();
 			posY = gl.getPanelAnfPosY();
@@ -243,7 +253,7 @@ public class Game {
 			break;
 		case 1:
 		case 4:
-		case 7:	
+		case 7:
 			posX = gl.getPanelFortPosX();
 			posY = gl.getPanelFortPosY();
 			width = gl.getPanelFortWidth();
@@ -251,7 +261,7 @@ public class Game {
 			break;
 		case 2:
 		case 5:
-		case 8:	
+		case 8:
 			posX = gl.getPanelProPosX();
 			posY = gl.getPanelProPosY();
 			width = gl.getPanelProWidth();
@@ -264,86 +274,99 @@ public class Game {
 		panel.setBounds(posX, posY, width, height);
 		panel2.setBounds(panel.getBounds());
 
-		frmMinesweeper.setBounds(500, 200, width + posX + 50, height + posY + 100); // die Größe desFensters ist abhängig von der Größe des Spielfeldes.
-		flag.setImage(flag.getImage().getScaledInstance(width / gl.getDimensionY() - 5, height / gl.getDimensionX() - 5, Image.SCALE_DEFAULT)); // Größe der Flagge, die in einem Button angezeigt wird. Abhängig von der Größe des Spielfeldes.
-		mine.setImage(mine.getImage().getScaledInstance(width / gl.getDimensionY() - 5, height / gl.getDimensionX() - 5, Image.SCALE_DEFAULT)); // Größe der Miene, die in einem Button angezeigt wird. Abhängig von der Größe des Spielfeldes.
+		frmMinesweeper.setBounds(500, 200, width + posX + 50, height + posY + 100);
+		flag.setImage(flag.getImage().getScaledInstance(width / gl.getDimensionY() - 5, height / gl.getDimensionX() - 5,
+				Image.SCALE_DEFAULT));
+		mine.setImage(mine.getImage().getScaledInstance(width / gl.getDimensionY() - 5, height / gl.getDimensionX() - 5,
+				Image.SCALE_DEFAULT));
 
-		cells = new Cell[gl.getDimensionX()][gl.getDimensionY()]; // Array "cells" wird erstellt mit den Dimensionen der Spielfeldgröße
+		cells = new Cell[gl.getDimensionX()][gl.getDimensionY()];
 
 		for (int i = 0; i < gl.getDimensionX(); i++) {
 			for (int j = 0; j < gl.getDimensionY(); j++) {
-				cells[i][j] = new Cell(this, new int[] { i, j }); // Cell-Objekte werden erstellt, Game-Objekt, Index der Zelle und Icon für die Flagge werden mitgegeben.
-				panel2.add(cells[i][j].getLabel()); // Hintergrundpanel wird befüllt mit den Labels (Hintergrundbildern) der Zellen.
-				panel.add(cells[i][j].getButton()); // Vordergrundpanel wird befüllt mit den Buttons der Zellen.
+				cells[i][j] = new Cell(this, new int[] { i, j });
+				panel2.add(cells[i][j].getLabel());
+				panel.add(cells[i][j].getButton());
 			}
 		}
-		if (gl.getMode()!=3&&gl.getMode()!=4&&gl.getMode()!=5){
-		spreadBombs();} // Mienen werden verteilt je nach gewähltem Schwierigkeitsgrad.
-		else{
+		if (gl.getMode() != 3 && gl.getMode() != 4 && gl.getMode() != 5) {
+			spreadBombs();
+		} else {
 			spreadTreasure();
 		}
-		panel.setOpaque(false); // das Panel mit den Zellen wird auf durchsichtig gesetzt, damit man die Labels dahinter bei Buttondruck sehen kann.
+		panel.setOpaque(false);
 		return panel;
 	}
-	private void spreadTreasure(){
+
+	/**
+	 * Creating field for mode Tresure Hunt.
+	 */
+	private void spreadTreasure() {
 		Random rnd = new Random();
-		  if(gl.getMode()==3||gl.getMode()==4||gl.getMode()==5){			//Schatz mit umgebenden Bomben setzen
-			int k=0;
+		if (gl.getMode() == 3 || gl.getMode() == 4 || gl.getMode() == 5) {
+			int k = 0;
 			int x = rnd.nextInt(gl.getDimensionX());
 			int y = rnd.nextInt(gl.getDimensionY());
 			cells[x][y].setTreasure(true);
 			if (x != 0)
-				if (cells[x-1][y]!=null){
-				cells[x - 1][y].setBomb();
-				adjustValue(x-1,y);
-			    k++;
+				if (cells[x - 1][y] != null) {
+					cells[x - 1][y].setBomb();
+					adjustValue(x - 1, y);
+					k++;
 				}
 			if (x != gl.getDimensionX() - 1)
-				if (cells[x+1][y]!=null){
-				cells[x + 1][y].setBomb();
-			adjustValue(x+1,y);
-				k++;}
+				if (cells[x + 1][y] != null) {
+					cells[x + 1][y].setBomb();
+					adjustValue(x + 1, y);
+					k++;
+				}
 			if (x != 0 && y != gl.getDimensionY() - 1)
-				if (cells[x-1][y]!=null){
-				cells[x - 1][y + 1].setBomb();
-			adjustValue(x-1,y+1);
-				k++;}
+				if (cells[x - 1][y] != null) {
+					cells[x - 1][y + 1].setBomb();
+					adjustValue(x - 1, y + 1);
+					k++;
+				}
 			if (x != gl.getDimensionX() - 1 && y != gl.getDimensionY() - 1)
-				if (cells[x+1][y+1]!=null){
-				cells[x + 1][y + 1].setBomb();
-			adjustValue(x+1,y+1);
-				k++;}
+				if (cells[x + 1][y + 1] != null) {
+					cells[x + 1][y + 1].setBomb();
+					adjustValue(x + 1, y + 1);
+					k++;
+				}
 			if (y != gl.getDimensionY() - 1)
-				if (cells[x][y+1]!=null){
-				cells[x][y + 1].setBomb();
-			adjustValue(x,y+1);
-				k++;}
+				if (cells[x][y + 1] != null) {
+					cells[x][y + 1].setBomb();
+					adjustValue(x, y + 1);
+					k++;
+				}
 			if (y != 0)
-				if (cells[x][y-1]!=null){
-				cells[x][y - 1].setBomb();
-			adjustValue(x,y-1);
-				k++;}
+				if (cells[x][y - 1] != null) {
+					cells[x][y - 1].setBomb();
+					adjustValue(x, y - 1);
+					k++;
+				}
 			if (x != gl.getDimensionX() - 1 && y != 0)
-				if (cells[x+1][y-1]!=null){
-				cells[x + 1][y - 1].setBomb();
-			adjustValue(x+1,y-1);
-				k++;}
+				if (cells[x + 1][y - 1] != null) {
+					cells[x + 1][y - 1].setBomb();
+					adjustValue(x + 1, y - 1);
+					k++;
+				}
 			if (x != 0 && y != 0)
-				if (cells[x-1][y-1]!=null){
-				cells[x - 1][y - 1].setBomb();
-			adjustValue(x-1,y-1);
-				k++;}
-		
-		  for (int j = 0; j < bombs-k; j++) {
+				if (cells[x - 1][y - 1] != null) {
+					cells[x - 1][y - 1].setBomb();
+					adjustValue(x - 1, y - 1);
+					k++;
+				}
+
+			for (int j = 0; j < bombs - k; j++) {
 				do {
 					x = rnd.nextInt(gl.getDimensionX());
 					y = rnd.nextInt(gl.getDimensionY());
-					while(cells[x][y].isTreasure()){
+					while (cells[x][y].isTreasure()) {
 						x = rnd.nextInt(gl.getDimensionX());
 						y = rnd.nextInt(gl.getDimensionY());
 					}
-				} while (cells[x][y].isBomb()); // Mienen werden zufällig auf die Felder verteilt.
-				
+				} while (cells[x][y].isBomb());
+
 				cells[x][y].setBomb();
 				if (x != 0)
 					cells[x - 1][y].setValue(cells[x - 1][y].getValue() + 1);
@@ -361,12 +384,18 @@ public class Game {
 					cells[x + 1][y - 1].setValue(cells[x + 1][y - 1].getValue() + 1);
 				if (x != 0 && y != 0)
 					cells[x - 1][y - 1].setValue(cells[x - 1][y - 1].getValue() + 1);
-				// Die Werte (value) der Nachbarzellen einer Zelle mit Bombe werden um 1 erhöht.
 			}
+		}
 	}
-	}
-	private void adjustValue(int x, int y){
-		if (cells[x][y].isTreasure()==false){
+
+	/**
+	 * Setting number of bombs on certain fields.
+	 * 
+	 * @param x coordinate on field.
+	 * @param y coordinate on field.
+	 */
+	private void adjustValue(int x, int y) {
+		if (cells[x][y].isTreasure() == false) {
 			cells[x][y].setBomb();
 			if (x != 0)
 				cells[x - 1][y].setValue(cells[x - 1][y].getValue() + 1);
@@ -384,13 +413,12 @@ public class Game {
 				cells[x + 1][y - 1].setValue(cells[x + 1][y - 1].getValue() + 1);
 			if (x != 0 && y != 0)
 				cells[x - 1][y - 1].setValue(cells[x - 1][y - 1].getValue() + 1);
-		}}
-	
-
-	public void setGl(gameLibrary gl) {
-		this.gl = gl;
+		}
 	}
 
+	/**
+	 * Playing bombs randomly on the field.
+	 */
 	private void spreadBombs() {
 		Random rnd = new Random();
 
@@ -400,7 +428,7 @@ public class Game {
 			do {
 				x = rnd.nextInt(gl.getDimensionX());
 				y = rnd.nextInt(gl.getDimensionY());
-			} while (cells[x][y].isBomb()); // Mienen werden zufällig auf die Felder verteilt.
+			} while (cells[x][y].isBomb());
 
 			cells[x][y].setBomb();
 			if (x != 0)
@@ -419,14 +447,22 @@ public class Game {
 				cells[x + 1][y - 1].setValue(cells[x + 1][y - 1].getValue() + 1);
 			if (x != 0 && y != 0)
 				cells[x - 1][y - 1].setValue(cells[x - 1][y - 1].getValue() + 1);
-			// Die Werte (value) der Nachbarzellen einer Zelle mit Bombe werden um 1 erhöht.
 		}
 	}
 
-	public Cell getCellbyIndex(int[] index) { // Kann von einer Zelle aufgerufen werden um die Zelle anhand eines Index zurück zu bekommen.
+	/**
+	 * 
+	 * 
+	 * @param index of cell field.
+	 * @return value of current cell.
+	 */
+	public Cell getCellbyIndex(int[] index) {
 		return cells[index[0]][index[1]];
 	}
 
+	/**
+	 * Uncover all bombs on field.
+	 */
 	public void uncoverAllBombs() {
 		for (int i = 0; i < gl.getDimensionX(); i++) {
 			for (int j = 0; j < gl.getDimensionY(); j++) {
@@ -437,18 +473,20 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Checks win condition.
+	 */
 	public void checkWin() {
 		int counter = 0;
 		for (int i = 0; i < gl.getDimensionX(); i++) {
 			for (int j = 0; j < gl.getDimensionY(); j++) {
 				if (cells[i][j].isUncovered() && !cells[i][j].isBomb()) {
 					counter++;
-					if (counter == (gl.getDimensionX () * gl.getDimensionY()) - bombs)
+					if (counter == (gl.getDimensionX() * gl.getDimensionY()) - bombs)
 						cells[i][j].win();
 				}
 			}
 		}
 	}
-
 
 }

@@ -1,7 +1,14 @@
-
+/**
+ * gameLibrary is saving some information about game. Can be access for using for other components of the game e.g. Highscore.
+ * 
+ * @author John Voronkov
+ *
+ * @version 1.0
+ */
 public class gameLibrary {
+	private String playerName;
 	private int mode;
-	
+	private int time;
 	private int panelAnfPosX = 49;
 	private int panelAnfPosY = 72;
 	private int panelFortPosX = 49;
@@ -14,99 +21,170 @@ public class gameLibrary {
 	private int dimensionX;
 	private int dimensionY;
 
+	/**
+	 * Get the saved information of the difficulty of the game.
+	 * 
+	 * @return difficulty of game.
+	 */
 	public int getMode() {
 		return mode;
 	}
 
+	/**
+	 * Saving difficulty of game.
+	 * 
+	 * @param mode difficulty of game.
+	 */
 	public void setMode(int mode) {
 		this.mode = mode;
 	}
 
+	/**
+	 * X start postion of Window for beginners.
+	 * 
+	 * @return int value of x position
+	 */
 	public int getPanelAnfPosX() {
 		return panelAnfPosX;
 	}
 
-	public void setPanelAnfPosX(int panelAnfPosX) {
-		this.panelAnfPosX = panelAnfPosX;
-	}
-
+	/**
+	 * Y start postion of Window for beginners.
+	 * 
+	 * @return int value of y position
+	 */
 	public int getPanelAnfPosY() {
 		return panelAnfPosY;
 	}
 
-	public void setPanelAnfPosY(int panelAnfPosY) {
-		this.panelAnfPosY = panelAnfPosY;
-	}
-
+	/**
+	 * X start postion of Window for amateurs.
+	 * 
+	 * @return int value of x position
+	 */
 	public int getPanelFortPosX() {
 		return panelFortPosX;
 	}
 
-	public void setPanelFortPosX(int panelFortPosX) {
-		this.panelFortPosX = panelFortPosX;
-	}
-
+	/**
+	 * Y start postion of Window for amateurs.
+	 * 
+	 * @return int value of y position
+	 */
 	public int getPanelFortPosY() {
 		return panelFortPosY;
 	}
 
-	public void setPanelFortPosY(int panelFortPosY) {
-		this.panelFortPosY = panelFortPosY;
-	}
-
+	/**
+	 * X start postion of Window for advanced.
+	 * 
+	 * @return int value of x position
+	 */
 	public int getPanelProPosX() {
 		return panelProPosX;
 	}
 
-	public void setPanelProPosX(int panelProPosX) {
-		this.panelProPosX = panelProPosX;
-	}
-
+	/**
+	 * Y start postion of Window for advanced.
+	 * 
+	 * @return int value of y position
+	 */
 	public int getPanelProPosY() {
 		return panelProPosY;
 	}
 
-	public void setPanelProPosY(int panelProPosY) {
-		this.panelProPosY = panelProPosY;
-	}
-
+	/**
+	 *  Defines the window width of beginner level.
+	 * 
+	 * @return int value of window width
+	 */
 	public int getPanelAnfWidth() {
 		return panelAnfWidth;
 	}
 
-	public void setPanelAnfWidth(int panelAnfWidth) {
-		this.panelAnfWidth = panelAnfWidth;
-	}
-
+	/**
+	 * Defines the window width of amateur level.
+	 * 
+	 * @return int value of window width
+	 */
 	public int getPanelFortWidth() {
 		return panelFortWidth;
 	}
 
-	public void setPanelFortWidth(int panelFortWidth) {
-		this.panelFortWidth = panelFortWidth;
-	}
-
+	/**
+	 * Defines the window width of advanced level.
+	 * 
+	 * @return int value of window width
+	 */
 	public int getPanelProWidth() {
 		return panelProWidth;
 	}
 
-	public void setPanelProWidth(int panelProWidth) {
-		this.panelProWidth = panelProWidth;
-	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public int getDimensionX() {
 		return dimensionX;
 	}
 
+	/**
+	 * 
+	 * @param dimensionX
+	 */
 	public void setDimensionX(int dimensionX) {
 		this.dimensionX = dimensionX;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getDimensionY() {
 		return dimensionY;
 	}
 
+	/**
+	 * 
+	 * @param dimensionY
+	 */
 	public void setDimensionY(int dimensionY) {
 		this.dimensionY = dimensionY;
+	}
+
+	/**
+	 * Saved time of last game.
+	 * 
+	 * @return time in seconds
+	 */
+	public int getTime() {
+		return time;
+	}
+
+	/**
+	 * Saving the played time(in seconds) for the last game.
+	 * 
+	 * @param time played time in last game.
+	 */
+	public void setTime(int time) {
+		this.time = time;
+	}
+
+	/**
+	 * Saved player name of last game.
+	 * 
+	 * @return String of player name last game.
+	 */
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	/**
+	 * Saving player name of last game.
+	 * 
+	 * @param playerName String of player name last game.
+	 */
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
 	}
 }
