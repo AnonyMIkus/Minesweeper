@@ -144,10 +144,10 @@ public class Cell implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		open();
-		
+
 	}
 
-	 void open(){
+	void open() {
 		if (!flagSet && !game.isGameLost()) {
 			uncover();
 			// Bei Linksklick aufdecken, falls keine Flagge gesetzt ist
@@ -171,36 +171,36 @@ public class Cell implements ActionListener {
 			}
 
 			if (game.getGl().getMode() == 6 || game.getGl().getMode() == 7 || game.getGl().getMode() == 8) {
-				/*
-				 * if (!bomb) { uncoverAllBombs(); GameOver gameOver = new
-				 * GameOver(game.getMenu(), game); gameOver.setVisible(true);
-				 * game.getBtnMenu().setVisible(false); game.setGameLost(true);
-				 * // Wenn auf dem Feld eine Miene ist, Game Over }
-				 */
-				if (bomb) {
-					game.setWincounter(game.getWincounter() + 1);
-					if (game.getWincounter() == game.getBombs()) {
-						win();
-					}
-					uncoverBombNeighbours();
-				}
 
+				if (!bomb) {
+					uncoverAllBombs();
+					GameOver gameOver = new GameOver(game.getMenu(), game);
+					gameOver.setVisible(true);
+					game.getBtnMenu().setVisible(false);
+					game.setGameLost(true);
+					// Wenn auf dem Feld eine Miene ist, Game Over }
+
+					if (bomb) {
+						game.setWincounter(game.getWincounter() + 1);
+						if (game.getWincounter() == game.getBombs()) {
+							win();
+						}
+						uncoverBombNeighbours();
+					}
+
+				}
 			}
 		}
 	}
+
 	private void uncoverBombNeighbours() {
-		getNeighbours();
+		ArrayList<Cell> neighbour = getNeighbours();
 
-		for (int i = 0; i < neighbourCells.size(); i++) {
-			if ((!(neighbourCells.get(i).isBomb() || neighbourCells.get(i).flagSet)))
-				if (!neighbourCells.get(i).uncovered) {
-					if (neighbourCells.get(i).getValue() == 1) {
-						neighbourCells.get(i).uncover();
-						neighbourCells.get(i).uncoverAllNeighbours();
-					}
-					neighbourCells.get(i).checkSurroundings();
+		for (int i = 0; i < neighbour.size(); i++) {
+			if ((!(neighbour.get(i).isBomb() || neighbour.get(i).flagSet)))
+				neighbour.get(i).checkSurroundings();
 
-				}
+			// }
 			// deckt die Nachbarzellen auf, wenn diese keine Bombe oder Flagge
 			// enthalten. Wenn diese leer sind, werden deren Nachbarzellen auch
 			// aufgedeckt ist das ziel......
@@ -209,32 +209,34 @@ public class Cell implements ActionListener {
 	}
 
 	private void checkSurroundings() {
-		getNeighbours();
+		ArrayList<Cell> neighbour = getNeighbours();
 		int counter = 0;
-		int counterOpen=0;
-		for (int i = 0; i < neighbourCells.size(); i++) {
-			if (neighbourCells.get(i).isBomb() && neighbourCells.get(i).uncovered) {
+		int counterOpen = 0;
+		for (int i = 0; i < neighbour.size(); i++) {
+			if (neighbour.get(i).isBomb() && neighbour.get(i).uncovered) {
 				counter++;
 			}
-			if(neighbourCells.get(i).isBomb()||neighbourCells.get(i).uncovered)
-				counterOpen++;	
+			if (neighbour.get(i).isBomb() || neighbour.get(i).uncovered)
+				counterOpen++;
 		}
 		if (getValue() == counter) {
 			uncover();
 			uncoverAllNeighbours();
-			if(counterOpen!=neighbourCells.size())
-			checkSurroundings();
+			if (counterOpen != neighbour.size())
+				for (Cell c : neighbour)
+
+					c.checkSurroundings();
 		}
 
 	}
 
 	private void uncoverAllNeighbours() {
-		getNeighbours();
-		for(int i=0; i < neighbourCells.size(); i++){
-			if(!neighbourCells.get(i).isBomb())
-				neighbourCells.get(i).uncover();
+		ArrayList<Cell> neighbour = getNeighbours();
+		for (int i = 0; i < neighbour.size(); i++) {
+			if (!neighbour.get(i).isBomb())
+				neighbour.get(i).uncover();
 		}
-		
+
 	}
 
 	public void uncover() {
@@ -245,13 +247,15 @@ public class Cell implements ActionListener {
 	}
 
 	public void uncoverNeighbours() {
-		getNeighbours(); // Befüllt die neighbourCells Liste, in der die
-							// Nachbarzellen gespeichert sind.
-		for (int i = 0; i < neighbourCells.size(); i++) {
-			if (!neighbourCells.get(i).uncovered && (!neighbourCells.get(i).bomb || neighbourCells.get(i).flagSet)) {
-				neighbourCells.get(i).uncover();
-				if (neighbourCells.get(i).getValue() == 0)
-					neighbourCells.get(i).uncoverNeighbours();
+		ArrayList<Cell> neighbour = getNeighbours(); // Befüllt die
+														// neighbourCells Liste,
+														// in der die
+		// Nachbarzellen gespeichert sind.
+		for (int i = 0; i < neighbour.size(); i++) {
+			if (!neighbour.get(i).uncovered && (!neighbour.get(i).bomb || neighbour.get(i).flagSet)) {
+				neighbour.get(i).uncover();
+				if (neighbour.get(i).getValue() == 0)
+					neighbour.get(i).uncoverNeighbours();
 			}
 			// deckt die Nachbarzellen auf, wenn diese keine Bombe oder Flagge
 			// enthalten. Wenn diese leer sind, werden deren Nachbarzellen auch
@@ -305,7 +309,7 @@ public class Cell implements ActionListener {
 		// Gibt den Index der Zelle zurück
 	}
 
-	 ArrayList<Cell> getNeighbours() {
+	ArrayList<Cell> getNeighbours() {
 
 		int x = index[0];
 		int y = index[1];
