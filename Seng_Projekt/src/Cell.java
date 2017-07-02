@@ -172,30 +172,27 @@ public class Cell implements ActionListener {
 
 			if (game.getGl().getMode() == 6 || game.getGl().getMode() == 7 || game.getGl().getMode() == 8) {
 
-				if (!bomb) {
-					uncoverAllBombs();
-					GameOver gameOver = new GameOver(game.getMenu(), game);
-					gameOver.setVisible(true);
-					game.getBtnMenu().setVisible(false);
-					game.setGameLost(true);
-					// Wenn auf dem Feld eine Miene ist, Game Over }
-
-					if (bomb) {
-						game.setWincounter(game.getWincounter() + 1);
-						if (game.getWincounter() == game.getBombs()) {
-							win();
-						}
-						uncoverBombNeighbours();
+				/*
+				 * if (!bomb) { uncoverAllBombs(); GameOver gameOver = new
+				 * GameOver(game.getMenu(), game); gameOver.setVisible(true);
+				 * game.getBtnMenu().setVisible(false); game.setGameLost(true);
+				 * // Wenn auf dem Feld eine Miene ist, Game Over }
+				 */
+				if (bomb) {
+					game.setWincounter(game.getWincounter() + 1);
+					if (game.getWincounter() == game.getBombs()) {
+						win();
 					}
-
+					uncoverBombNeighbours();
 				}
+
 			}
 		}
+
 	}
 
 	private void uncoverBombNeighbours() {
 		ArrayList<Cell> neighbour = getNeighbours();
-
 		for (int i = 0; i < neighbour.size(); i++) {
 			if ((!(neighbour.get(i).isBomb() || neighbour.get(i).flagSet)))
 				neighbour.get(i).checkSurroundings();
@@ -209,25 +206,25 @@ public class Cell implements ActionListener {
 	}
 
 	private void checkSurroundings() {
-		ArrayList<Cell> neighbour = getNeighbours();
-		int counter = 0;
-		int counterOpen = 0;
-		for (int i = 0; i < neighbour.size(); i++) {
-			if (neighbour.get(i).isBomb() && neighbour.get(i).uncovered) {
-				counter++;
+		if (!isBomb()) {
+			ArrayList<Cell> neighbour = getNeighbours();
+			int counter = 0;
+			int counterOpen = 0;
+			for (int i = 0; i < neighbour.size(); i++) {
+				if (neighbour.get(i).isBomb() && neighbour.get(i).uncovered) {
+					counter++;
+				}
+				if (neighbour.get(i).isBomb() || neighbour.get(i).uncovered)
+					counterOpen++;
 			}
-			if (neighbour.get(i).isBomb() || neighbour.get(i).uncovered)
-				counterOpen++;
+			if (getValue() == counter) {
+				uncover();
+				uncoverAllNeighbours();
+				if (counterOpen != neighbour.size())
+					for (Cell c : neighbour)
+						c.checkSurroundings();
+			}
 		}
-		if (getValue() == counter) {
-			uncover();
-			uncoverAllNeighbours();
-			if (counterOpen != neighbour.size())
-				for (Cell c : neighbour)
-
-					c.checkSurroundings();
-		}
-
 	}
 
 	private void uncoverAllNeighbours() {
