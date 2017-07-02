@@ -178,7 +178,7 @@ public class Cell implements ActionListener {
 				 * game.getBtnMenu().setVisible(false); game.setGameLost(true);
 				 * // Wenn auf dem Feld eine Miene ist, Game Over }
 				 */
-				if (bomb) {
+				if (bomb&&uncovered) {
 					game.setWincounter(game.getWincounter() + 1);
 					if (game.getWincounter() == game.getBombs()) {
 						win();
