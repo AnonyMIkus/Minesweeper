@@ -1,11 +1,17 @@
 
 public class Timer extends Thread{
-	
+	Timer(Game game){
+		stop=false;
+		zeit="00:00";
+		this.game=game;
+	}
+	Game game;
 	boolean stop;
+	String zeit;
 	
 	 public void run(){
-		String zeit;
-		stop=false;
+		
+	
 	Thread thread = new Thread();
 	int c=0;
 	while (c<9999 && !stop){
@@ -25,7 +31,7 @@ public class Timer extends Thread{
 		else{
 		zeit="0"+Integer.toString(c/60)+":"+"0"+Integer.toString(c%60);}
 		}}
-		Game.getTimer().setText(zeit);
+		game.getTimer().setText(zeit);
 		c++;
 	}
 	 }

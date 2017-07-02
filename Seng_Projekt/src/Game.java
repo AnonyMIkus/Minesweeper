@@ -23,12 +23,12 @@ public class Game {
 	private JPanel panel2;
 	private JLabel lblFlags;
 
-	private static JLabel timer;
+	private JLabel timer;
 	private ImageIcon flag = new ImageIcon("img/flag.png"); // Bild der Flagge
 	private ImageIcon mine = new ImageIcon("img/mine2.png");
 	private int bombs;
 	private int flags;
-	private Timer time = new Timer();
+	private Timer time = new Timer(this);
 	private JButton btnMenu;
 	private boolean gameLost = false;
 	private int wincounter = 0;
@@ -241,7 +241,7 @@ public class Game {
 		this.time = time;
 	}
 
-	public static JLabel getTimer() {
+	public JLabel getTimer() {
 		return timer;
 	}
 
