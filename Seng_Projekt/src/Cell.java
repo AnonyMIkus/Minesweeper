@@ -213,7 +213,7 @@ public class Cell implements ActionListener {
 				if (bomb) {
 					uncoverAllBombs();
 					game.getTime().reset();
-					GameOver gameOver = new GameOver(game.getMenu(), game);
+					GameOver gameOver = new GameOver(game);
 					gameOver.setVisible(true);
 					game.getBtnMenu().setVisible(false);
 					game.setGameLost(true);

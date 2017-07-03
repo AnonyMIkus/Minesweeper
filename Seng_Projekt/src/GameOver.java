@@ -32,7 +32,7 @@ public class GameOver extends JDialog {
 	 * @param menu Retrieving main menu in case of returning.
 	 * @param game for disposing the recent game.
 	 */
-	public GameOver(Minesweeper menu, Game game) {
+	public GameOver(Game game) {
 		setTitle("Verloren!");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,6 +58,7 @@ public class GameOver extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 				game.getFrmMinesweeper().dispose();
+				Minesweeper menu = new Minesweeper();
 				menu.getFrame().setVisible(true);
 			}
 		});
