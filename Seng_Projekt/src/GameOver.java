@@ -33,7 +33,7 @@ public class GameOver extends JDialog {
 	 * @param game for disposing the recent game.
 	 */
 	public GameOver(Game game) {
-		setTitle("Verloren!");
+		setTitle("Game lost!");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
