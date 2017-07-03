@@ -111,6 +111,7 @@ public class GameTest {
 	@Test
 	public void test5(){
 		Game game = new Game(7, new Minesweeper());
+		game.getGl().setPlayerName("Player1");
 		for (Cell[] c : game.getCells()) {
 			for (Cell t : c) {
 				if(t.isBomb())
