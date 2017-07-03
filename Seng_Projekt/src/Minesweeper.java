@@ -56,6 +56,23 @@ public class Minesweeper {
 		this.frmMinesweeper = frmMinesweeper;
 	}
 
+
+	/**
+	 * 
+	 * @return
+	 */
+	boolean isSelectedProf() {
+		return selectedProf;
+	}
+
+	/**
+	 * 
+	 * @param selectedProf
+	 */
+	void setSelectedProf(boolean selectedProf) {
+		this.selectedProf = selectedProf;
+	}
+
 	/**
 	 * Getting current main menu.
 	 * 
