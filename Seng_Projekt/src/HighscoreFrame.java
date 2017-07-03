@@ -114,13 +114,11 @@ public class HighscoreFrame {
 			playerList.add(playerName);
 			timeList.add(usedTime);
 		} else {
-			while (usedTime > timeList.get(i) && i < topNumber) {
+			while (i < timeList.size() &&  usedTime > timeList.get(i)  ) {
 				i++;
 			}
-			if (usedTime < timeList.get(i) && i < topNumber) {
-				playerList.add(playerName);
-				timeList.add(usedTime);
-			}
+     		playerList.add(i,playerName);
+	    	timeList.add(i,usedTime);
 			while (timeList.size() > topNumber) {
 				timeList.remove(topNumber);
 				timeList.trimToSize();
@@ -149,7 +147,7 @@ public class HighscoreFrame {
 					bufferedReader = br.readLine();
 				}
 				String[] valueList;
-				while (!bufferedReader.equals(null)) {
+				while (bufferedReader!=null) {
 					valueList = bufferedReader.split(seperator);
 					playerList.add(valueList[0]);
 					timeList.add(Integer.parseInt(valueList[1]));
@@ -258,7 +256,7 @@ public class HighscoreFrame {
 					bufferedReader = br.readLine();
 				}
 				String[] valueList;
-				while (!bufferedReader.equals(null)) {
+				while (bufferedReader!=null) {
 					valueList = bufferedReader.split(seperator);
 					playerList.add(valueList[0]);
 					timeList.add(Integer.parseInt(valueList[1]));
