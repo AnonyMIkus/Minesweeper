@@ -67,7 +67,47 @@ public class Cell implements ActionListener {
 	}
 
 	/**
-	 *  Gatting value of a field uncovered or not.
+	 * 
+	 * @param bomb
+	 */
+	void setBomb(boolean bomb) {
+		this.bomb = bomb;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	boolean isFlagSet() {
+		return flagSet;
+	}
+
+	/**
+	 * 
+	 * @param flagSet
+	 */
+	void setFlagSet(boolean flagSet) {
+		this.flagSet = flagSet;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	boolean isMarkedUnsure() {
+		return markedUnsure;
+	}
+
+	/**
+	 * 
+	 * @param markedUnsure
+	 */
+	void setMarkedUnsure(boolean markedUnsure) {
+		this.markedUnsure = markedUnsure;
+	}
+
+	/**
+	 * Gatting value of a field uncovered or not.
 	 * 
 	 * @return boolean of uncoverd field.
 	 */
@@ -76,61 +116,27 @@ public class Cell implements ActionListener {
 	}
 
 	/**
-	 * Setting up a bomb on a field.
+	 * 
+	 * @param uncovered
 	 */
-	public void setBomb() {
-		bomb = true;
-		label.setIcon(mine);
-	}
-
-	/**
-	 * Removing flag of current field.
-	 */
-	public void removeFlag() {
-		flagSet = false;
-		button.setIcon(null);
-	}
-
-	/**
-	 * Uncovering all bommbs on the current field undependend of its size.
-	 */
-	public void uncoverAllBombs() {
-		game.uncoverAllBombs();
+	void setUncovered(boolean uncovered) {
+		this.uncovered = uncovered;
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public JButton getButton() {
-		return button;
+	ArrayList<Cell> getNeighbourCells() {
+		return neighbourCells;
 	}
 
 	/**
 	 * 
-	 * @return
+	 * @param neighbourCells
 	 */
-	public JLabel getLabel() {
-		return label;
-	}
-
-	/**
-	 * 
-	 * @param val
-	 */
-	public void setValue(int val) {
-		if (!bomb) {
-			value = val;
-			label.setText(Integer.toString(value));
-		}
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public int getValue() {
-		return value;
+	void setNeighbourCells(ArrayList<Cell> neighbourCells) {
+		this.neighbourCells = neighbourCells;
 	}
 
 	/**
@@ -197,6 +203,10 @@ public class Cell implements ActionListener {
 	 * Overrided method. Function of clicking a field (in general),
 	 */
 	public void actionPerformed(ActionEvent arg0) {
+		open();
+	}
+	
+	public void open(){
 		if (!flagSet && !game.isGameLost()) {
 			uncover();
 			if (Game.getGl().getMode() != 6 && Game.getGl().getMode() != 7 && Game.getGl().getMode() != 8) {
@@ -216,13 +226,10 @@ public class Cell implements ActionListener {
 				game.checkWin();
 			}
 			if (Game.getGl().getMode() == 6 || Game.getGl().getMode() == 7 || Game.getGl().getMode() == 8) {
-				if (bomb) {
+				if (bomb && uncovered) {
 					game.setWincounter(game.getWincounter() + 1);
-					if (game.getWincounter() == 10 && Game.getGl().getMode() == 6
-							|| game.getWincounter() == 40 && Game.getGl().getMode() == 7
-							|| game.getWincounter() == 99 && Game.getGl().getMode() == 8) {
+					if (game.getWincounter() == game.getBombs()) {
 						win();
-						Timer.currentThread().stop();
 					}
 					uncoverBombNeighbours();
 				}
@@ -234,15 +241,10 @@ public class Cell implements ActionListener {
 	 * 
 	 */
 	private void uncoverBombNeighbours() {
-		getNeighbours();
+		ArrayList<Cell> neighbour = getNeighbours();
 		for (int i = 0; i < neighbourCells.size(); i++) {
-			if (!neighbourCells.get(i).uncovered && (!neighbourCells.get(i).bomb || neighbourCells.get(i).flagSet)) {
-				if (neighbourCells.get(i).getValue() == 1 || neighbourCells.get(i).getValue() == 0) {
-					neighbourCells.get(i).uncover();
-					neighbourCells.get(i).uncoverNeighbours();
-				} else {
-					checkSurroundings(neighbourCells.get(i));
-				}
+			if (!neighbourCells.get(i).isBomb() && neighbourCells.get(i).flagSet) {
+					neighbour.get(i).checkSurroundings();
 			}
 		}
 	}
@@ -250,22 +252,44 @@ public class Cell implements ActionListener {
 	/**
 	 * Checks surrounding cells of the current cell.
 	 * 
-	 * @param cell current cell
+	 * @param cell
+	 *            current cell
 	 */
-	private void checkSurroundings(Cell cell) {
-		cell.getNeighbours();
-		int counter = 0;
-		for (int i = 0; i < cell.neighbourCells.size(); i++) {
-			if (cell.neighbourCells.get(i).isBomb() && cell.neighbourCells.get(i).uncovered) {
-				counter++;
+	private void checkSurroundings() {
+		if (!isBomb()) {
+			ArrayList<Cell> neighbour = getNeighbours();
+			int counter = 0;
+			int counterOpen = 0;
+			for (int i = 0; i < neighbour.size(); i++) {
+				if (neighbour.get(i).isBomb() && neighbour.get(i).uncovered) {
+					counter++;
+				}
+				if (neighbour.get(i).isBomb() || neighbour.get(i).uncovered)
+					counterOpen++;
+			}
+			if (getValue() == counter) {
+				uncover();
+				uncoverAllNeighbours();
+				if (counterOpen != neighbour.size())
+					for (Cell c : neighbour)
+						c.checkSurroundings();
 			}
 		}
-		if (cell.getValue() == counter)
-			cell.uncover();
 	}
 
 	/**
-	 *  Uncover current field.
+	 * 
+	 */
+	public void uncoverAllNeighbours() {
+		ArrayList<Cell> neighbour = getNeighbours();
+		for (int i = 0; i < neighbour.size(); i++) {
+			if (!neighbour.get(i).isBomb())
+				neighbour.get(i).uncover();
+		}
+	}
+
+	/**
+	 * Uncover current field.
 	 */
 	public void uncover() {
 		if (!flagSet) {
@@ -278,8 +302,8 @@ public class Cell implements ActionListener {
 	 * Uncovering fields around current field.
 	 */
 	public void uncoverNeighbours() {
-		getNeighbours();
-		for (int i = 0; i < neighbourCells.size(); i++) {
+		ArrayList<Cell> neighbour = getNeighbours();
+		for (int i = 0; i < neighbour.size(); i++) {
 			if (!neighbourCells.get(i).uncovered && (!neighbourCells.get(i).bomb || neighbourCells.get(i).flagSet)) {
 				neighbourCells.get(i).uncover();
 				if (neighbourCells.get(i).getValue() == 0) {
@@ -290,9 +314,67 @@ public class Cell implements ActionListener {
 	}
 
 	/**
+	 * Setting up a bomb on a field.
+	 */
+	public void setBomb() {
+		bomb = true;
+		label.setIcon(mine);
+	}
+
+	/**
+	 * Removing flag of current field.
+	 */
+	public void removeFlag() {
+		flagSet = false;
+		button.setIcon(null);
+	}
+
+	/**
+	 * Uncovering all bommbs on the current field undependend of its size.
+	 */
+	public void uncoverAllBombs() {
+		game.uncoverAllBombs();
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public JButton getButton() {
+		return button;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public JLabel getLabel() {
+		return label;
+	}
+
+	/**
+	 * 
+	 * @param val
+	 */
+	public void setValue(int val) {
+		if (!bomb) {
+			value = val;
+			label.setText(Integer.toString(value));
+		}
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public int getValue() {
+		return value;
+	}
+
+	/**
 	 * Analysing environment around a field.
 	 */
-	private void getNeighbours() {
+	ArrayList<Cell> getNeighbours() {
 		int x = index[0];
 		int y = index[1];
 		neighbourCells = new ArrayList<Cell>();
@@ -313,6 +395,7 @@ public class Cell implements ActionListener {
 			neighbourCells.add(game.getCellbyIndex(new int[] { x - 1, y + 1 }));
 		if (x != 0 && y != 0)
 			neighbourCells.add(game.getCellbyIndex(new int[] { x - 1, y - 1 }));
+		return neighbourCells;
 	}
 
 	/**

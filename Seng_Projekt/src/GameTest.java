@@ -10,6 +10,12 @@ import java.util.ArrayList;
  */
 import org.junit.Test;
 
+/**
+ * 
+ * @author Sandra Keim
+ * 
+ * @version 02.07
+ */
 public class GameTest {
 	/**
 	 * assert that the number of bombs in the field is right 

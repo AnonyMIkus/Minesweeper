@@ -40,112 +40,204 @@ public class Game {
 	private boolean gameLost = false;
 	private int wincounter = 0;
 
+	/**
+	 * 
+	 * @return
+	 */
+	Cell[][] getCells() {
+		return cells;
+	}
+	
+	/**
+	 * 
+	 * @param cells
+	 */
+	void setCells(Cell[][] cells) {
+		this.cells = cells;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getWincounter() {
 		return wincounter;
 	}
 
+	/**
+	 * 
+	 * @param wincounter
+	 */
 	public void setWincounter(int wincounter) {
 		this.wincounter = wincounter;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isGameLost() {
 		return gameLost;
 	}
 
+	/**
+	 * 
+	 * @param gameLost
+	 */
 	public void setGameLost(boolean gameLost) {
 		this.gameLost = gameLost;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public JButton getBtnMenu() {
 		return btnMenu;
 	}
 
+	/**
+	 * 
+	 * @param btnMenu
+	 */
 	public void setBtnMenu(JButton btnMenu) {
 		this.btnMenu = btnMenu;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static gameLibrary getGl() {
 		return gl;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	JFrame getFrmMinesweeper() {
 		return frmMinesweeper;
 	}
 
+	/**
+	 * 
+	 * @param frmMinesweeper
+	 */
 	void setFrmMinesweeper(JFrame frmMinesweeper) {
 		this.frmMinesweeper = frmMinesweeper;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	Minesweeper getMenu() {
 		return menu;
 	}
 
+	/**
+	 * 
+	 * @param menu
+	 */
 	void setMenu(Minesweeper menu) {
 		this.menu = menu;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	JPanel getPanel2() {
 		return panel2;
 	}
 
+	/**
+	 * 
+	 * @param panel2
+	 */
 	void setPanel2(JPanel panel2) {
 		this.panel2 = panel2;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	JLabel getLblFlags() {
 		return lblFlags;
 	}
 
+	/**
+	 * 
+	 * @param lblFlags
+	 */
 	void setLblFlags(JLabel lblFlags) {
 		this.lblFlags = lblFlags;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	int getBombs() {
 		return bombs;
 	}
 
+	/**
+	 * 
+	 * @param bombs
+	 */
 	void setBombs(int bombs) {
 		this.bombs = bombs;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	int getFlags() {
 		return flags;
 	}
 
+	/**
+	 * 
+	 * @param flags
+	 */
 	void setFlags(int flags) {
 		this.flags = flags;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ImageIcon getFlag() {
 		return flag;
 	}
 
+	/**
+	 * 
+	 * @param flag
+	 */
 	public void setFlag(ImageIcon flag) {
 		this.flag = flag;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ImageIcon getMine() {
 		return mine;
 	}
 
+	/**
+	 * 
+	 * @param mine
+	 */
 	public void setMine(ImageIcon mine) {
 		this.mine = mine;
-	}
-
-	public Timer getTime() {
-		return time;
-	}
-
-	public void setTime(Timer time) {
-		this.time = time;
-	}
-
-	public static JLabel getTimer() {
-		return timer;
-	}
-
-	public void setTimer(JLabel timer) {
-		this.timer = timer;
 	}
 
 	/**
@@ -218,7 +310,7 @@ public class Game {
 		btnMenu.setBounds(126, 21, 143, 31);
 		frmMinesweeper.getContentPane().add(btnMenu);
 
-		JLabel lblNewLabel = new JLabel("Fahnen ");
+		JLabel lblNewLabel = new JLabel("Flags ");
 		lblNewLabel.setBounds(70, 11, 46, 14);
 		frmMinesweeper.getContentPane().add(lblNewLabel);
 
@@ -226,6 +318,38 @@ public class Game {
 		lblFlags.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFlags.setBounds(70, 29, 46, 14);
 		frmMinesweeper.getContentPane().add(lblFlags);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Timer getTime() {
+		return time;
+	}
+
+	/**
+	 * 
+	 * @param time
+	 */
+	public void setTime(Timer time) {
+		this.time = time;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static JLabel getTimer() {
+		return timer;
+	}
+
+	/**
+	 * 
+	 * @param timer
+	 */
+	public void setTimer(JLabel timer) {
+		this.timer = timer;
 	}
 
 	/**
@@ -415,6 +539,14 @@ public class Game {
 				cells[x - 1][y - 1].setValue(cells[x - 1][y - 1].getValue() + 1);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param gl
+	 */
+	public void setGl(gameLibrary gl) {
+		this.gl = gl;
+	}
 
 	/**
 	 * Playing bombs randomly on the field.
@@ -451,7 +583,7 @@ public class Game {
 	}
 
 	/**
-	 * 
+	 * Can be called from a Cell to get another Cell from its index.
 	 * 
 	 * @param index of cell field.
 	 * @return value of current cell.

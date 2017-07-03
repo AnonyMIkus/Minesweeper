@@ -34,6 +34,7 @@ public class Minesweeper {
 	private ImageIcon bomb = new ImageIcon("img/mine.png");
 	private Game game;
 	private JTextField txtPlayer;
+	private JTextPane txtpnName;
 	private Minesweeper menu = this;
 
 	/**
@@ -41,9 +42,9 @@ public class Minesweeper {
 	 * 
 	 * @return active main menu window.
 	 */
-	// JFrame getFrmMinesweeper() {
-	// return frmMinesweeper;
-	// }
+	JFrame getFrmMinesweeper() {
+		return frmMinesweeper;
+	}
 
 	/**
 	 * Set window of main menu as current main menu. To get main you @see
@@ -56,7 +57,37 @@ public class Minesweeper {
 		this.frmMinesweeper = frmMinesweeper;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	boolean isSelectedAnf() {
+		return selectedAnf;
+	}
 
+	/**
+	 * 
+	 * @param selectedAnf
+	 */
+	void setSelectedAnf(boolean selectedAnf) {
+		this.selectedAnf = selectedAnf;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	boolean isSelectedErf() {
+		return selectedErf;
+	}
+
+	/**
+	 * 
+	 * @param selectedErf
+	 */
+	void setSelectedErf(boolean selectedErf) {
+		this.selectedErf = selectedErf;
+	}
 	/**
 	 * 
 	 * @return
@@ -73,6 +104,15 @@ public class Minesweeper {
 		this.selectedProf = selectedProf;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	Minesweeper getMenu() {
+		return menu;
+	}
+	
+	
 	/**
 	 * Getting current main menu.
 	 * 
@@ -186,16 +226,16 @@ public class Minesweeper {
 		frmMinesweeper.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
-		JToggleButton btnEasy = new JToggleButton("Anf\u00E4nger");
+		JToggleButton btnEasy = new JToggleButton("Beginner");
 		btnEasy.setSelected(true);
 		btnEasy.setBounds(6, 16, 106, 46);
 		panel_1.add(btnEasy);
 
-		JToggleButton btnMedium = new JToggleButton("Erfahren");
+		JToggleButton btnMedium = new JToggleButton("Amateur");
 		btnMedium.setBounds(6, 64, 106, 46);
 		panel_1.add(btnMedium);
 
-		JToggleButton btnPro = new JToggleButton("Profi");
+		JToggleButton btnPro = new JToggleButton("Advanced");
 		btnPro.setBounds(6, 113, 106, 46);
 		panel_1.add(btnPro);
 
@@ -254,5 +294,12 @@ public class Minesweeper {
 		lblBomb1.setBounds(90, 27, 30, 30);
 		lblBomb1.setIcon(bomb);
 		frmMinesweeper.getContentPane().add(lblBomb1);
+	}
+	JTextPane getTxtpnName() {
+		return txtpnName;
+	}
+
+	void setTxtpnName(JTextPane txtpnName) {
+		this.txtpnName = txtpnName;
 	}
 }
