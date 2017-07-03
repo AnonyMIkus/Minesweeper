@@ -57,7 +57,7 @@ public class GameOver extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				game.getFrmMinesweeper().dispose();
+				game.getFrmMinesweeper().setVisible(false);
 				Minesweeper menu = new Minesweeper();
 				menu.getFrame().setVisible(true);
 			}
@@ -69,8 +69,8 @@ public class GameOver extends JDialog {
 		btnNochmal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				game.getFrmMinesweeper().dispose();
-				Game gm = new Game(Game.getGl().getMode(), game.getMenu());
+				game.getFrmMinesweeper().setVisible(false);
+				Game gm = new Game(Game.getGl().getMode(), Game.getGl().getMenu());
 			}
 		});
 		btnNochmal.setActionCommand("Try Again");

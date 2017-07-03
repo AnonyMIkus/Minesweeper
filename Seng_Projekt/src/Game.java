@@ -247,6 +247,7 @@ public class Game {
 	 * @param menu for returning to main menu
 	 */
 	public Game(int mode, Minesweeper menu) {
+		gl.setMenu(menu);
 		gl.setMode(mode);
 		if (gl.getMode() == 0 || gl.getMode() == 1 || gl.getMode() == 2) {
 			gl.setDimensionY(gl.getMode() == 0 ? 8 : gl.getMode() == 1 ? 16 : 30);
@@ -303,8 +304,8 @@ public class Game {
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				time.reset();
-				frmMinesweeper.dispose();
-				menu.getFrame().setVisible(true);
+				frmMinesweeper.setVisible(false);
+				gl.getMenu().getFrame().setVisible(true);
 			}
 		});
 		btnMenu.setBounds(126, 21, 143, 31);

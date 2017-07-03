@@ -6,6 +6,7 @@
  * @version 1.0
  */
 public class gameLibrary {
+	private Minesweeper menu;
 	private String playerName;
 	private int mode;
 	private int time;
@@ -186,5 +187,13 @@ public class gameLibrary {
 	 */
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
+	}
+
+	public Minesweeper getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Minesweeper menu) {
+		this.menu = menu;
 	}
 }

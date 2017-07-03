@@ -218,6 +218,7 @@ public class Cell implements ActionListener {
 					game.getBtnMenu().setVisible(false);
 					game.setGameLost(true);
 				}
+				
 				if (treasure) {
 					win();
 				}
@@ -225,7 +226,16 @@ public class Cell implements ActionListener {
 					uncoverNeighbours();
 				game.checkWin();
 			}
+			
 			if (Game.getGl().getMode() == 6 || Game.getGl().getMode() == 7 || Game.getGl().getMode() == 8) {
+				if (!bomb) {
+					uncoverAllBombs();
+					game.getTime().reset();
+					GameOver gameOver = new GameOver(game);
+					gameOver.setVisible(true);
+					game.getBtnMenu().setVisible(false);
+					game.setGameLost(true);
+				}
 				if (bomb && uncovered) {
 					game.setWincounter(game.getWincounter() + 1);
 					if (game.getWincounter() == game.getBombs()) {
@@ -243,7 +253,7 @@ public class Cell implements ActionListener {
 	private void uncoverBombNeighbours() {
 		ArrayList<Cell> neighbour = getNeighbours();
 		for (int i = 0; i < neighbourCells.size(); i++) {
-			if (!neighbourCells.get(i).isBomb() && neighbourCells.get(i).flagSet) {
+			if (!(neighbourCells.get(i).isBomb() || neighbourCells.get(i).flagSet)) {
 					neighbour.get(i).checkSurroundings();
 			}
 		}
@@ -402,7 +412,7 @@ public class Cell implements ActionListener {
 	 * Switch from game to Highscore if player won.
 	 */
 	public void win() {
-		game.getFrmMinesweeper().dispose();
+		game.getFrmMinesweeper().setVisible(false);
 		HighscoreFrame hf = new HighscoreFrame();
 		game.getTime().reset();
 	}

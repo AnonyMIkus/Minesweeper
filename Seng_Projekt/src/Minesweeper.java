@@ -109,7 +109,7 @@ public class Minesweeper {
 	 * @return
 	 */
 	Minesweeper getMenu() {
-		return menu;
+		return Game.getGl().getMenu();
 	}
 	
 	
@@ -231,7 +231,7 @@ public class Minesweeper {
 		btnEasy.setBounds(6, 16, 106, 46);
 		panel_1.add(btnEasy);
 
-		JToggleButton btnMedium = new JToggleButton("Amateur");
+		JToggleButton btnMedium = new JToggleButton("Medium");
 		btnMedium.setBounds(6, 64, 106, 46);
 		panel_1.add(btnMedium);
 
@@ -246,7 +246,7 @@ public class Minesweeper {
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmMinesweeper.dispose();
+				frmMinesweeper.setVisible(false);
 				if (btnStandard.isSelected()) {
 					game = new Game(btnEasy.isSelected() ? 0 : btnMedium.isSelected() ? 1 : 2, menu);
 					Game.getGl().setPlayerName(txtPlayer.getText());
@@ -270,7 +270,7 @@ public class Minesweeper {
 			HighscoreFrame hr;
 
 			public void actionPerformed(ActionEvent e) {
-				frmMinesweeper.dispose();
+				frmMinesweeper.setVisible(false);
 				if (btnStandard.isSelected()) {
 					hr = new HighscoreFrame(btnEasy.isSelected() ? 0 : btnMedium.isSelected() ? 1 : 2);
 				}
