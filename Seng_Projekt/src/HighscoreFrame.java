@@ -20,7 +20,10 @@ import javax.swing.border.Border;
  * HighscoreFrame is loading the Highscore for the gamemodes and their levels
  * beginner, amateur and advanced.
  * 
- * @author John Voronkov
+ * @author Sandra
+ * @author Philip
+ * @author Chris
+ * @author John
  *
  * @version 2.0
  */
@@ -129,7 +132,7 @@ public class HighscoreFrame {
 	}
 
 	/**
-	 * Loading nessecary files depending on gamemode and difficulty.
+	 * Loading nessecary files depending on gamemode and difficulty after finishing the game.
 	 * 
 	 * @return boolen for success of loading.
 	 */
@@ -235,7 +238,7 @@ public class HighscoreFrame {
 	}
 
 	/**
-	 * Loading nessecary files depending on gamemode and difficulty.
+	 * Loading nessecary files depending on gamemode and difficulty if button from main menu was pressed.
 	 * 
 	 * @param mode
 	 *            for loading correct file.
@@ -244,10 +247,12 @@ public class HighscoreFrame {
 
 	public boolean load(int mode) {
 		try {
+			// Checks mode.
 			if (mode < 0 || mode > 8) {
 				return false;
 			}
 			File saving = new File(fileName[mode]);
+			// Checking if file is existing else it creates a new file depending on mode.
 			if (saving.exists()) {
 				FileReader fr = new FileReader(saving);
 				BufferedReader br = new BufferedReader(fr);
@@ -255,6 +260,7 @@ public class HighscoreFrame {
 				if (br.ready()) {
 					bufferedReader = br.readLine();
 				}
+				// Reading list for windows from file.
 				String[] valueList;
 				while (bufferedReader!=null) {
 					valueList = bufferedReader.split(seperator);

@@ -12,7 +12,10 @@ import org.junit.Test;
 
 /**
  * 
- * @author Sandra Keim
+ * @author Sandra
+ * @author Philip
+ * @author Chris
+ * @author John
  * 
  * @version 02.07
  */

@@ -13,10 +13,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- * GameOver get the player to the Game Over window where the player can choose
+ * GameOver get the player to the "Game Over"-notify-window where the player can choose
  * to play again or to return to main menu.
  * 
- * @author John Voronkov
+ * @author Sandra
+ * @author Philip
+ * @author Chris
+ * @author John
  * 
  * @version 2.0
  * 

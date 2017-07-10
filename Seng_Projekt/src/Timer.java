@@ -1,7 +1,10 @@
 /**
  * Timer counting used time and change it  for display.
  * 
- * @author John Voronkov
+ * @author Sandra
+ * @author Philip
+ * @author Chris
+ * @author John
  *
  * @version 1.0
  */
@@ -35,7 +38,9 @@ public class Timer extends Thread {
 					}
 				}
 			}
+			// For showing timer in-game.
 			Game.getTimer().setText(zeit);
+			// Saving time before using it for Highscore.
 			Game.getGl().setTime(c);
 		}
 	}

@@ -18,7 +18,10 @@ import javax.swing.SwingConstants;
 /**
  * Game is set up field and triggers nessecary components.
  * 
- * @author John Voronkov
+ * @author Sandra
+ * @author Philip
+ * @author Chris
+ * @author John
  * 
  * @version 2.0
  */
@@ -41,21 +44,24 @@ public class Game {
 	private int wincounter = 0;
 
 	/**
+	 * Getting whole game-field.
 	 * 
-	 * @return
+	 * @return All buttons saved in an array.
 	 */
 	Cell[][] getCells() {
 		return cells;
 	}
-	
+
 	/**
+	 * Setting game-field.
 	 * 
 	 * @param cells
+	 *            Setting buttons depending on size of field.
 	 */
 	void setCells(Cell[][] cells) {
 		this.cells = cells;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -73,22 +79,26 @@ public class Game {
 	}
 
 	/**
+	 * Getting value for checking if game is lost.
 	 * 
-	 * @return
+	 * @return Boolean value if game lost.
 	 */
 	public boolean isGameLost() {
 		return gameLost;
 	}
 
 	/**
+	 * Setting current game as not lost or lost.
 	 * 
 	 * @param gameLost
+	 *            Boolean for current game.
 	 */
 	public void setGameLost(boolean gameLost) {
 		this.gameLost = gameLost;
 	}
 
 	/**
+	 * 
 	 * 
 	 * @return
 	 */
@@ -105,6 +115,7 @@ public class Game {
 	}
 
 	/**
+	 * Static access to gameLibrary.
 	 * 
 	 * @return
 	 */
@@ -113,32 +124,38 @@ public class Game {
 	}
 
 	/**
+	 * Getting frame from the game.
 	 * 
-	 * @return
+	 * @return Game frame.
 	 */
 	JFrame getFrmMinesweeper() {
 		return frmMinesweeper;
 	}
 
 	/**
+	 * Saving fram of the game.
 	 * 
 	 * @param frmMinesweeper
+	 *            Game frame.
 	 */
 	void setFrmMinesweeper(JFrame frmMinesweeper) {
 		this.frmMinesweeper = frmMinesweeper;
 	}
 
 	/**
+	 * Getting currently main menu.
 	 * 
-	 * @return
+	 * @return State of main menu.
 	 */
 	Minesweeper getMenu() {
 		return menu;
 	}
 
 	/**
+	 * Saving currently main menu.
 	 * 
 	 * @param menu
+	 *            State of main menu.
 	 */
 	void setMenu(Minesweeper menu) {
 		this.menu = menu;
@@ -146,13 +163,16 @@ public class Game {
 
 	/**
 	 * 
-	 * @return
+	 * Getting panel for representing numbers.
+	 * 
+	 * @return Panel for numbers.
 	 */
 	JPanel getPanel2() {
 		return panel2;
 	}
 
 	/**
+	 * Saving panel for represnting numbers.
 	 * 
 	 * @param panel2
 	 */
@@ -161,6 +181,7 @@ public class Game {
 	}
 
 	/**
+	 * Getting set flag.
 	 * 
 	 * @return
 	 */
@@ -169,6 +190,7 @@ public class Game {
 	}
 
 	/**
+	 * Saving set flag.
 	 * 
 	 * @param lblFlags
 	 */
@@ -177,64 +199,76 @@ public class Game {
 	}
 
 	/**
+	 * Getting number of bombs around a field.
 	 * 
-	 * @return
+	 * @return Number of bombs.
 	 */
 	int getBombs() {
 		return bombs;
 	}
 
 	/**
+	 * Number of bombs around a specify field.
 	 * 
 	 * @param bombs
+	 *            Number of bombs.
 	 */
 	void setBombs(int bombs) {
 		this.bombs = bombs;
 	}
 
 	/**
+	 * Getting number alls flags.
 	 * 
-	 * @return
+	 * @return Number of flags.
 	 */
 	int getFlags() {
 		return flags;
 	}
 
 	/**
+	 * Setting number of all flags.
 	 * 
 	 * @param flags
+	 *            Number of flags.
 	 */
 	void setFlags(int flags) {
 		this.flags = flags;
 	}
 
 	/**
+	 * Getting image of flag.
 	 * 
-	 * @return
+	 * @return ImageIcon of flag.
 	 */
 	public ImageIcon getFlag() {
 		return flag;
 	}
 
 	/**
+	 * Setting image of flag.
 	 * 
 	 * @param flag
+	 *            ImageIcon of flag.
 	 */
 	public void setFlag(ImageIcon flag) {
 		this.flag = flag;
 	}
 
 	/**
+	 * Getting image of mine.
 	 * 
-	 * @return
+	 * @return ImageIcon of mine.
 	 */
 	public ImageIcon getMine() {
 		return mine;
 	}
 
 	/**
+	 * Setting image of mine.
 	 * 
 	 * @param mine
+	 *            ImageIcon of mine.
 	 */
 	public void setMine(ImageIcon mine) {
 		this.mine = mine;
@@ -243,12 +277,16 @@ public class Game {
 	/**
 	 * Creating window with all components.
 	 * 
-	 * @param mode setting difficulty of the game
-	 * @param menu for returning to main menu
+	 * @param mode
+	 *            setting difficulty of the game
+	 * @param menu
+	 *            for returning to main menu
 	 */
 	public Game(int mode, Minesweeper menu) {
 		gl.setMenu(menu);
 		gl.setMode(mode);
+
+		// Setting size depending on mode and difficulty of the game.
 		if (gl.getMode() == 0 || gl.getMode() == 1 || gl.getMode() == 2) {
 			gl.setDimensionY(gl.getMode() == 0 ? 8 : gl.getMode() == 1 ? 16 : 30);
 			gl.setDimensionX(gl.getMode() == 0 ? 8 : gl.getMode() == 1 ? 16 : 16);
@@ -265,6 +303,8 @@ public class Game {
 			bombs = gl.getMode() == 6 ? 10 : gl.getMode() == 7 ? 40 : 99;
 		}
 		flags = bombs;
+
+		// Creating frame with field.
 		frmMinesweeper = new JFrame();
 		frmMinesweeper.setTitle("Minesweeper");
 		frmMinesweeper.setResizable(false);
@@ -274,6 +314,7 @@ public class Game {
 		frmMinesweeper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMinesweeper.setVisible(true);
 
+		// Creating menubar.
 		JMenuBar bar = new JMenuBar();
 		JMenu file = new JMenu("File");
 		JMenuItem close = new JMenuItem("Close");
@@ -294,6 +335,7 @@ public class Game {
 		panel.setBounds(10, 11, 50, 50);
 		frmMinesweeper.getContentPane().add(panel);
 
+		// Adding timer to gamr.
 		timer = new JLabel();
 		panel.add(timer);
 		timer.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -320,8 +362,9 @@ public class Game {
 		lblFlags.setBounds(70, 29, 46, 14);
 		frmMinesweeper.getContentPane().add(lblFlags);
 	}
-	
+
 	/**
+	 * Getting time of Timer class.
 	 * 
 	 * @return
 	 */
@@ -330,6 +373,7 @@ public class Game {
 	}
 
 	/**
+	 * Setting time of Timer class.
 	 * 
 	 * @param time
 	 */
@@ -338,16 +382,18 @@ public class Game {
 	}
 
 	/**
+	 * Get time to be shown.
 	 * 
-	 * @return
+	 * @return JLabel for time to be shown.
 	 */
 	public static JLabel getTimer() {
 		return timer;
 	}
 
 	/**
+	 * Setting time element.
 	 * 
-	 * @param timer
+	 * @param timer JLabel for time element.
 	 */
 	public void setTimer(JLabel timer) {
 		this.timer = timer;
@@ -367,6 +413,7 @@ public class Game {
 		int width = 0;
 		int height = 0;
 
+		// Setting position for frame.
 		switch (gl.getMode()) {
 		case 0:
 		case 3:
@@ -405,6 +452,7 @@ public class Game {
 		mine.setImage(mine.getImage().getScaledInstance(width / gl.getDimensionY() - 5, height / gl.getDimensionX() - 5,
 				Image.SCALE_DEFAULT));
 
+		// Setting up the game field.
 		cells = new Cell[gl.getDimensionX()][gl.getDimensionY()];
 
 		for (int i = 0; i < gl.getDimensionX(); i++) {
@@ -516,8 +564,10 @@ public class Game {
 	/**
 	 * Setting number of bombs on certain fields.
 	 * 
-	 * @param x coordinate on field.
-	 * @param y coordinate on field.
+	 * @param x
+	 *            coordinate on field.
+	 * @param y
+	 *            coordinate on field.
 	 */
 	private void adjustValue(int x, int y) {
 		if (cells[x][y].isTreasure() == false) {
@@ -540,7 +590,7 @@ public class Game {
 				cells[x - 1][y - 1].setValue(cells[x - 1][y - 1].getValue() + 1);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param gl
@@ -586,7 +636,8 @@ public class Game {
 	/**
 	 * Can be called from a Cell to get another Cell from its index.
 	 * 
-	 * @param index of cell field.
+	 * @param index
+	 *            of cell field.
 	 * @return value of current cell.
 	 */
 	public Cell getCellbyIndex(int[] index) {

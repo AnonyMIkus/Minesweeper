@@ -22,7 +22,10 @@ import javax.swing.ImageIcon;
 /**
  * Minsweeper creates window with game settings before starting the game.
  * 
- * @author John Voronkov
+ * @author Sandra
+ * @author Philip
+ * @author Chris
+ * @author John
  *
  * @version 2.0
  */
@@ -58,14 +61,16 @@ public class Minesweeper {
 	}
 
 	/**
+	 * Checks if beginner was choosen.
 	 * 
-	 * @return
+	 * @return Boolean value for selectedAnf.
 	 */
 	boolean isSelectedAnf() {
 		return selectedAnf;
 	}
 
 	/**
+	 * Setting game to beginner level.
 	 * 
 	 * @param selectedAnf
 	 */
@@ -74,6 +79,7 @@ public class Minesweeper {
 	}
 
 	/**
+	 * Checks if medium was choosen.
 	 * 
 	 * @return
 	 */
@@ -82,6 +88,7 @@ public class Minesweeper {
 	}
 
 	/**
+	 * Setting game to medium level.
 	 * 
 	 * @param selectedErf
 	 */
@@ -89,6 +96,7 @@ public class Minesweeper {
 		this.selectedErf = selectedErf;
 	}
 	/**
+	 * Checks if advance was choosen.
 	 * 
 	 * @return
 	 */
@@ -97,6 +105,7 @@ public class Minesweeper {
 	}
 
 	/**
+	 * Setting game to advanced level.
 	 * 
 	 * @param selectedProf
 	 */
@@ -105,8 +114,9 @@ public class Minesweeper {
 	}
 
 	/**
+	 * 	Getting already running main menu.
 	 * 
-	 * @return
+	 * @return Getting saved main menu.
 	 */
 	Minesweeper getMenu() {
 		return Game.getGl().getMenu();
@@ -159,6 +169,7 @@ public class Minesweeper {
 		frmMinesweeper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMinesweeper.getContentPane().setLayout(null);
 
+		// Initializing text-fields in the window of main menu.
 		JTextArea txtrSoftwareengineering = new JTextArea();
 		txtrSoftwareengineering.setEditable(false);
 		txtrSoftwareengineering.setText("Software-Engineering \nProjekt von \nSandra, Philipp, John, Chris");
@@ -202,6 +213,7 @@ public class Minesweeper {
 		frmMinesweeper.getContentPane().add(panel);
 		panel.setLayout(null);
 
+		// Buttons for game mode.
 		JToggleButton btnStandard = new JToggleButton("Standard");
 		btnStandard.setSelected(true);
 		btnStandard.setBounds(6, 16, 106, 46);
@@ -219,6 +231,7 @@ public class Minesweeper {
 		bGroupGame.add(btnTreasure);
 		bGroupGame.add(btnBomb);
 
+		// Buttons of difficulty.
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Schwierigkeitsgrad",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -243,6 +256,7 @@ public class Minesweeper {
 		bGroupDiff.add(btnMedium);
 		bGroupDiff.add(btnPro);
 
+		// Setting up start-button.
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -264,7 +278,7 @@ public class Minesweeper {
 		btnStart.setBounds(309, 299, 89, 23);
 		frmMinesweeper.getContentPane().add(btnStart);
 
-		// Switch directly to Highscore lists.
+		// Switch directly to Highscore lists depending on difficulty.
 		JButton justScore = new JButton("Highscore");
 		justScore.addActionListener(new ActionListener() {
 			HighscoreFrame hr;

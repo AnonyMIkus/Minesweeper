@@ -18,7 +18,10 @@ import javax.swing.border.LineBorder;
 /**
  * Cell implements function for buttons ingame.
  * 
- * @author John Voronkov
+ * @author Sandra
+ * @author Philip
+ * @author Chris
+ * @author John
  * 
  * @version 1.0
  *

@@ -1,7 +1,10 @@
 /**
  * gameLibrary is saving some information about game. Can be access for using for other components of the game e.g. Highscore.
  * 
- * @author John Voronkov
+ * @author Sandra
+ * @author Philip
+ * @author Chris
+ * @author John
  *
  * @version 1.0
  */
@@ -122,14 +125,16 @@ public class gameLibrary {
 	}
 
 	/**
+	 * Value of x Dimension.
 	 * 
-	 * @return
+	 * @return Dimension  x  value.
 	 */
 	public int getDimensionX() {
 		return dimensionX;
 	}
 
 	/**
+	 * Setting up  value for x Dimension.
 	 * 
 	 * @param dimensionX
 	 */
@@ -138,14 +143,16 @@ public class gameLibrary {
 	}
 
 	/**
+	 * Value of y Dimension.
 	 * 
-	 * @return
+	 * @return Dimension  y  value.
 	 */
 	public int getDimensionY() {
 		return dimensionY;
 	}
 
 	/**
+	 * Setting up  value for y Dimension.
 	 * 
 	 * @param dimensionY
 	 */
@@ -189,10 +196,20 @@ public class gameLibrary {
 		this.playerName = playerName;
 	}
 
+	/**
+	 * Getting running main menu.
+	 * 
+	 * @return Running main menu of Minsweeper.
+	 */
 	public Minesweeper getMenu() {
 		return menu;
 	}
 
+	/**
+	 * Saving currently running main menu.
+	 * 
+	 * @param menu Currently running main menu of Minesweeper.
+	 */
 	public void setMenu(Minesweeper menu) {
 		this.menu = menu;
 	}
